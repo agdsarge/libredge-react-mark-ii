@@ -1,11 +1,12 @@
 const initialState = {
     currentUser: null,
     currentRoute: null,
-    currentDeal: {
+    currentContract: {
         contract: '', // '1.S', '5.NT'
         trumpSuit: '' // 'S', 'NT'
     },
-    myPosition: null
+    myPosition: null,
+    currentGame: null,
 }
 
 const reducer = (state=initialState, action) => {

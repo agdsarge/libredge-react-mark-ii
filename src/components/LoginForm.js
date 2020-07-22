@@ -4,9 +4,9 @@ import { Form, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
 class LoginForm extends Component {
-    handleDispatch = (e) => {
-        this.props.dispatch({type: "SET_ROUTE", payload: "/register"})
-    }
+    // handleDispatch = (e) => {
+    //     this.props.dispatch({type: "SET_ROUTE", payload: "/register"})
+    // }
 
     render(){
         let {username, password} = this.props.newUser

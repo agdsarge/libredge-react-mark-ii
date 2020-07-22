@@ -7,7 +7,7 @@ import './App.css';
 import { JWT_URL } from './constants'
 
 import LoginContainer from './containers/LoginContainer'
-
+import GamesList from './containers/GamesList'
 class App extends Component {
 
 
@@ -35,7 +35,10 @@ class App extends Component {
                 <Router>
                 </Router>
                 <div id='skateboardLogin'>
-                    {this.props.currentUser ? <Button red onClick={this.handleLogout}>Sign Out!</Button> : <LoginContainer />}
+                    {this.props.currentUser ? <div><p> Hello, {this.props.currentUser.username}! </p><Button red onClick={this.handleLogout}>Sign Out!</Button> </div>: <LoginContainer />}
+                </div>
+                <div id='openGames'>
+                    {this.props.currentUser ? <GamesList /> : <p> please sign in </p> }
                 </div>
 
             </div>
