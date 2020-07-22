@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import LoginForm from '../components/LoginForm'
 
 
-import { LOGIN_URL } from '../constants'
+import { LOGIN_URL, HEADERS } from '../constants'
 
 class LoginContainer extends Component {
     constructor(props) {
@@ -24,7 +24,7 @@ class LoginContainer extends Component {
         e.preventDefault()
         fetch(LOGIN_URL, {
             method: "POST",
-            headers: this.props.headers,
+            headers: HEADERS,
             body: JSON.stringify(this.state)
         })
         .then(resp => resp.json())

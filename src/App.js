@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import {BrowserRouter as Router } from 'react-router-dom'
-// import { Button } from 'semantic-ui-react'
+import { Button } from 'semantic-ui-react'
 import './App.css';
 
 import { JWT_URL } from './constants'
 
-import LoginContainer from './containers/LoginContainer' 
+import LoginContainer from './containers/LoginContainer'
 
 class App extends Component {
 
@@ -23,6 +23,11 @@ class App extends Component {
         }
     }
 
+    handleLogout = (e) => {
+        this.props.dispatch({type: "SET_USER", payload: null})
+        localStorage.clear()
+    }
+
 
     render() {
         return(
@@ -30,7 +35,7 @@ class App extends Component {
                 <Router>
                 </Router>
                 <div id='skateboardLogin'>
-                    {this.props.currentUser ? null : <LoginContainer />}
+                    {this.props.currentUser ? <Button red onClick={this.handleLogout}>Sign Out!</Button> : <LoginContainer />}
                 </div>
 
             </div>
