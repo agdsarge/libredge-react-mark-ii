@@ -14,11 +14,11 @@ class ContentGrid extends Component {
     render() {
         return (
             <Grid id="mainGrid">
-                <Grid.Column width={2}
+                <Grid.Column width={2} >
                     <div></div>
                 </Grid.Column>
                 <Grid.Column width={10} >
-                    <FocusContainer />
+                    <FocusContainer component={this.props.component}/>
                 </Grid.Column>
                 <Grid.Column width={4} >
                     <SideContainer orientation="right" />

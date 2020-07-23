@@ -9,3 +9,4 @@ export const HEADERS = {
 
 export const JWT_URL = 'http://localhost:3005/api/v1/token'
 export const LOGIN_URL="http://localhost:3005/api/v1/login"
+export const REGISTER_URL="http://localhost:3005/api/v1/players"

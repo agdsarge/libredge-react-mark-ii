@@ -7,9 +7,10 @@ import './App.css';
 import { JWT_URL } from './constants'
 
 import LoginContainer from './containers/LoginContainer'
+import RegisterContainer from './containers/RegisterContainer'
 // import GamesList from './containers/GamesList'
 import ContentGrid from './containers/ContentGrid'
-import NavBar from './components'
+import NavBar from './components/NavBar'
 
 class App extends Component {
 
@@ -37,10 +38,11 @@ class App extends Component {
                             this.props.currentUser ?
                                 <Redirect to='/lobby'/>
                                     :
-                                <ContentGrid {...rp} />}
+                                <ContentGrid {...rp} component={<LoginContainer />} />}
                         />
                         <Route exact path='/register' render={(rp) =>
-                            <ContentGrid {...rp} />} />
+                            this.props.currentUser ? <Redirect to='/lobby' /> :
+                            <ContentGrid {...rp} component={<RegisterContainer />} /> } />
 
                         <Route exact path='/game' render={(rp) =>
                             this.props.currentUser ?

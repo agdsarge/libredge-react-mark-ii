@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Form, Button } from 'semantic-ui-react'
-// import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 class LoginForm extends Component {
@@ -42,6 +42,15 @@ class LoginForm extends Component {
                         style={{float:'right', margin:'10px'}}>
                         Sign in
                     </Button>
+                    <br />
+                    <NavLink
+                        to="/register"
+                        exact
+                        className="reg"
+                        style={{float:'left', margin:'10px'}}
+                        onClick={this.handleDispatch}>
+                        Register a new account!
+                    </NavLink>
                 </Form>
                 <br />
 

@@ -8,24 +8,10 @@ import { connect } from 'react-redux'
 
 class FocusContainer extends Component {
 
-    // selectFocus = () => {
-    //     console.log("selectFocus", this.props.currentRoute)
-    //     switch (this.props.currentRoute) {
-    //         case '/login':
-    //             return <LoginContainer />
-    //         case '/register':
-    //             return <RegisterContainer />
-    //         case '/game':
-    //             return <GameContainer />
-    //         default:
-    //             return <Lobby />
-    //     }
-    // }
-
     render() {
         return (
             <div id="focusContainer">
-                {/*{this.selectFocus()}*/}
+                {this.props.component}
             </div>
         )
     }
