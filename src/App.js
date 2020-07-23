@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import {BrowserRouter as Router } from 'react-router-dom'
+import {BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import { Button } from 'semantic-ui-react'
 import './App.css';
 
 import { JWT_URL } from './constants'
 
 import LoginContainer from './containers/LoginContainer'
-import GamesList from './containers/GamesList'
+// import GamesList from './containers/GamesList'
+import ContentGrid from './containers/ContentGrid'
+import NavBar from './components'
+
 class App extends Component {
 
-
-    componentDidMount() {   //Auth for jwt in local storage
+    componentDidMount() {   // Auth for jwt in local storage
         if(localStorage.getItem('jwt-libredge')) {
             fetch(JWT_URL, {
                 method: "GET",
@@ -23,23 +25,40 @@ class App extends Component {
         }
     }
 
-    handleLogout = (e) => {
-        this.props.dispatch({type: "SET_USER", payload: null})
-        localStorage.clear()
-    }
-
 
     render() {
         return(
             <div id='supra'>
+
                 <Router>
+                    <NavBar />
+                    <Switch>
+                        <Route exact path='/login' render={(rp) =>
+                            this.props.currentUser ?
+                                <Redirect to='/lobby'/>
+                                    :
+                                <ContentGrid {...rp} />}
+                        />
+                        <Route exact path='/register' render={(rp) =>
+                            <ContentGrid {...rp} />} />
+
+                        <Route exact path='/game' render={(rp) =>
+                            this.props.currentUser ?
+                                <ContentGrid {...rp} />
+                                    :
+                                <Redirect to='/login' />}
+                        />
+                        <Route exact path='/lobby' render={(rp) =>
+                            this.props.currentUser ?
+                                <ContentGrid {...rp} />
+                                    :
+                                <Redirect to='/login' />}
+                        />
+                        <Route path="*" render={(rp) => <ContentGrid {...rp} />}/>
+
+                    </Switch>
                 </Router>
-                <div id='skateboardLogin'>
-                    {this.props.currentUser ? <div><p> Hello, {this.props.currentUser.username}! </p><Button red onClick={this.handleLogout}>Sign Out!</Button> </div>: <LoginContainer />}
-                </div>
-                <div id='openGames'>
-                    {this.props.currentUser ? <GamesList /> : <p> please sign in </p> }
-                </div>
+
 
             </div>
         )

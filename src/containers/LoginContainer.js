@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import LoginForm from '../components/LoginForm'
 
-
 import { LOGIN_URL, HEADERS } from '../constants'
 
 class LoginContainer extends Component {
@@ -49,9 +48,7 @@ class LoginContainer extends Component {
 
 const matchStateToProps = (state) => {
     return {
-        currentUser: state.currentUser,
-        currentRoute: state.currentRoute,
-        headers: state.headers
+        currentUser: state.currentUser
     }
 }
 
