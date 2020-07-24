@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
-import { Card, Image, Button, Form } from 'semantic-ui-react'
+// import { Card, Image } from 'semantic-ui-react'
+// Button, Form
 
 import { connect } from 'react-redux'
 import { API_ROOT, HEADERS } from '../constants'
+
+import Hand from '../components/Hand'
+import BidForm from '../components/BidForm'
 
 class GameplayArea extends Component {
     //this.props.game is a game object => { id, memorable_string_name, final_score, deals}
@@ -33,7 +37,23 @@ class GameplayArea extends Component {
     //     .then(hand => this.setState({myHand: hand}))
     // }
 
+    determineMyPosition = () => {
+        // debugger
+        let actDeal  = this.props.currentGame.deals.slice(-1)[0]
+        this.props.dispatch({type: "SET_BID_PHASE", payload: actDeal['bid_phase']})
+        this.setState({activeDeal: actDeal})
+        let pGs = this.props.currentGame["player_games"]
+        let position = pGs.filter(pg => pg["player_id"] === this.props.currentUser.id)[0].position
+        this.props.dispatch({type: "SET_POSITION", payload: position})
+        fetch(`${API_ROOT}/hand/${actDeal.id}/${position}`)
+        .then(res => res.json())
+        .then( hand => this.setState({myHand: hand}))
+    }
+
+
+
     componentDidMount() {
+        this.determineMyPosition()
         // this.cheat()
         // setInterval(this.cheat, 10)
 
@@ -50,26 +70,27 @@ class GameplayArea extends Component {
 
     handleNewDeal = (e) => {
 
+
     }
 
 
-    handleBid = (e) => {
-        if (this.state.activeDeal.bid_phase) {
-        let bid = e.target.innerText.slice(0,2)
-        console.log(bid)
-
-        let body = {"bid_history": bid}
-        console.log(JSON.stringify(body))
-        fetch(`${API_ROOT}/deals/${this.state.activeDeal.id}`, {
-            method: "PUT",
-            headers: HEADERS,
-            body: JSON.stringify(body)
-        })
-        // .then(res => res.json())
-        // .then(console.log)
-    } else {
-        alert("bid phase over")
-    }}
+    // handleBid = (e) => {
+    //     if (this.state.activeDeal.bid_phase) {
+    //     let bid = e.target.innerText.slice(0,2)
+    //     console.log(bid)
+    //
+    //     let body = {"bid_history": bid}
+    //     console.log(JSON.stringify(body))
+    //     fetch(`${API_ROOT}/deals/${this.state.activeDeal.id}`, {
+    //         method: "PUT",
+    //         headers: HEADERS,
+    //         body: JSON.stringify(body)
+    //     })
+    //     // .then(res => res.json())
+    //     // .then(console.log)
+    // } else {
+    //     alert("bid phase over")
+    // }}
 
     bid_history_render = () => {
 
@@ -77,11 +98,18 @@ class GameplayArea extends Component {
 
     render() {
         return(
-                <h1> Hello from Gameplay Area </h1>
 
-            )
+            <div id="cardTable">
+
+                {this.props.currentBidPhase ? <BidForm deal={this.state.activeDeal}/> : null}
+                <div id='tricks'> </ div>
+
+                < Hand hand={this.state.myHand} />
+                <h3 className="centeredPosition" > Your position: {this.props.myPosition} </h3>
+            </div>
+
+        )
     }
-
 }
 
 // ({
@@ -100,7 +128,9 @@ const mapStateToProps = (state) => {
     return {
         currentUser: state.currentUser,
         myPosition: state.myPosition,
-        currentGame: state.currentGame
+        currentGame: state.currentGame,
+        currentBidPhase: state.currentBidPhase,
+        currentContract: state.currentContract
     }
 }
 

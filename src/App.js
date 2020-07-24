@@ -27,8 +27,6 @@ class App extends Component {
                 this.props.dispatch({type: 'SET_USER', payload: d}))
         }
     }
-
-
     render() {
         return(
             <div id='supra'>

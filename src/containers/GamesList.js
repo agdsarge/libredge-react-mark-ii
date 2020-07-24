@@ -2,19 +2,16 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import GameplayArea from '../components/GameplayArea'
+import { Button } from 'semantic-ui-react'
 
-import { Card, Image, Button, Form } from 'semantic-ui-react'
-
-import { API_ROOT, HEADERS } from '../constants'
+import { API_ROOT } from '../constants'
 
 
 class GamesList extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            myGames: [],
-            myHand: []
+            myGames: []
         };
     }
 
@@ -24,25 +21,24 @@ class GamesList extends Component {
             fetch(`${API_ROOT}/lobby/${this.props.currentUser.id}`)
             .then(res => res.json())
             .then(games => {
-                console.log(games)
                 if (!games.error){
                     this.setState({ myGames: games })}
             })
         }
     }
 
-    handleClick = id => {
+    handleClick = game => {
         // this.setState({ activeGameID: id })
         // this.setState({activeGame: this.findActiveGame(this.state.myGames, this.state.activeGameID)})
-        this.props.dispatch({type: 'SET_GAME', payload: id})
+        this.props.dispatch({type: 'SET_GAME', payload: game})
     };
 
     mapGames = (games, handleClick) => {
         return games.map(game => {
             return (
-                <div>
-                    <Link key={game.id} onClick={() => handleClick(game.id)} to={`games/${game["memorable_string_name"]}`}>
-                        <Button>{game["memorable_string_name"]} </Button>
+                <div key={game.id}>
+                    <Link  onClick={() => handleClick(game)} to={`games/${game["memorable_string_name"]}`}>
+                        <Button >{game["memorable_string_name"]} </Button>
                     </Link>
                     <hr />
                 </div>)
@@ -57,7 +53,7 @@ class GamesList extends Component {
 
 
     render = () => {
-        const { myGames, activeGame, activeGameID } = this.state;
+        const { myGames } = this.state;
         return (
             <div>
                 <div className="myGamesList">
