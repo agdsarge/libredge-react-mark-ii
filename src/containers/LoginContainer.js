@@ -33,7 +33,7 @@ class LoginContainer extends Component {
             } else {
                 localStorage.setItem('jwt-libredge', d.token)
                 console.log('LOGIN DEBUG', d)
-                this.props.dispatch({type: 'SET_USER', payload: d.user})
+                this.props.dispatch({type: 'SET_USER', payload: d.player})
             }
         })
         .then(this.setState({username: '', password: ''}))

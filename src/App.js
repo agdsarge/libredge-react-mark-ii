@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import {BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
-import { Button } from 'semantic-ui-react'
+// import { Button } from 'semantic-ui-react'
 import './App.css';
 
 import { JWT_URL } from './constants'
 
 import LoginContainer from './containers/LoginContainer'
 import RegisterContainer from './containers/RegisterContainer'
-// import GamesList from './containers/GamesList'
 import ContentGrid from './containers/ContentGrid'
+import GamesList from './containers/GamesList'
 import NavBar from './components/NavBar'
+import GameplayArea from './components/GameplayArea'
 
 class App extends Component {
 
     componentDidMount() {   // Auth for jwt in local storage
-        if(localStorage.getItem('jwt-libredge')) {
+        if (localStorage.getItem('jwt-libredge')) {
+            console.log("HELLO FROM APP JWT REQUEST")
             fetch(JWT_URL, {
                 method: "GET",
                 headers: {Authentication: localStorage.getItem('jwt-libredge')}
@@ -44,19 +46,19 @@ class App extends Component {
                             this.props.currentUser ? <Redirect to='/lobby' /> :
                             <ContentGrid {...rp} component={<RegisterContainer />} /> } />
 
-                        <Route exact path='/game' render={(rp) =>
+                        <Route exact path='/games/:id' render={(rp) =>
                             this.props.currentUser ?
-                                <ContentGrid {...rp} />
+                                <ContentGrid {...rp} component={< GameplayArea />} />
                                     :
                                 <Redirect to='/login' />}
                         />
                         <Route exact path='/lobby' render={(rp) =>
                             this.props.currentUser ?
-                                <ContentGrid {...rp} />
+                                <ContentGrid {...rp} component={<GamesList />}/>
                                     :
                                 <Redirect to='/login' />}
                         />
-                        <Route path="*" render={(rp) => <ContentGrid {...rp} />}/>
+                        <Route path="*" render={(rp) => <Redirect to='/login' />}/>
 
                     </Switch>
                 </Router>

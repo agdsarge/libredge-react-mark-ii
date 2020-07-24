@@ -34,6 +34,16 @@ class LoginForm extends Component {
                         style={{backgroundColor: 'transparent', color: 'ivory'}}
                     />
                     <hr />
+                    <NavLink
+                        to="/register"
+                        exact
+                        className="reg"
+                        style={{float:'left', margin:'10px'}}
+                        onClick={this.handleDispatch}>
+                        <Button inverted color='blue' >
+                            Register a new account
+                        </Button>
+                    </NavLink>
 
                     <input type="submit" value="Sign in"
                         style={{visibility:'hidden'}} />
@@ -43,18 +53,9 @@ class LoginForm extends Component {
                         Sign in
                     </Button>
                     <br />
-                    <NavLink
-                        to="/register"
-                        exact
-                        className="reg"
-                        style={{float:'left', margin:'10px'}}
-                        onClick={this.handleDispatch}>
-                        Register a new account!
-                    </NavLink>
+
                 </Form>
                 <br />
-
-
             </div >
         )}
 

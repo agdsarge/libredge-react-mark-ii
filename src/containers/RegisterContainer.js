@@ -46,15 +46,14 @@ class RegisterContainer extends Component {
                     email: '',
                     'password_digest': '',
                     confirm: '',
-                    country: '',
-                    bio: ''
+                    country: ''
                 })
                 this.props.dispatch({type: "SET_USER", payload: data})})
         }
     }
 
     render() {
-        let {username, email, password_digest, confirm, country, bio} = this.state
+        let {username, email, password_digest, confirm, country} = this.state
         return (
             <div>
                 <br />
