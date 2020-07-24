@@ -23,21 +23,6 @@ class GameplayArea extends Component {
         }
     }
 
-    // cheat = () => {
-    //     console.log("GAME PROP", this.props.game)
-    //     // console.log("GameplayArea", this.props.game.deals.slice(-1)[0])
-    //     this.setState({activeDeal: this.props.game.deals.slice(-1)[0]})
-    //     let latestDealID = this.props.game.deals.slice(-1)[0].id
-    //     let y = this.props.game["player_games"]
-    //     let myPosition = y.filter(pg => pg["player_id"] === this.props.currentUser.id)[0].position
-    //
-    //     this.props.dispatch({type:"SET_POSITION", payload: myPosition})
-    //     // console.log("CDM", `${API_ROOT}/hand/${latestDealID}/${myPosition}`)
-    //     fetch(`${API_ROOT}/hand/${latestDealID}/${myPosition}`)
-    //     .then(res => res.json())
-    //     .then(hand => this.setState({myHand: hand}))
-    // }
-
     determineMyPosition = () => {
         // debugger
         let actDeal  = this.props.currentGame.deals.slice(-1)[0]
@@ -51,10 +36,11 @@ class GameplayArea extends Component {
         .then( hand => this.setState({myHand: hand}))
     }
 
-
-
     componentDidMount() {
-        this.determineMyPosition()
+        if (!this.props.myPosition) {
+            this.determineMyPosition()
+        }
+
         // this.cheat()
         // setInterval(this.cheat, 10)
 

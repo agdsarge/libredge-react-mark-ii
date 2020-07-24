@@ -13,7 +13,7 @@ class LoginForm extends Component {
         return(
             <div>
                 <br />
-                <h2>Welcome!</h2>
+                <h2>Good to see you back!</h2>
                 <br />
 
                 <hr />

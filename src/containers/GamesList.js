@@ -38,7 +38,7 @@ class GamesList extends Component {
                     <Link  onClick={() => handleClick(game)} to={`games/${game["memorable_string_name"]}`}>
                         <Button >{game["memorable_string_name"]} </Button>
                     </Link>
-                    <hr />
+                    <br />
                 </div>)
         })
     }
@@ -54,6 +54,8 @@ class GamesList extends Component {
         const { myGames } = this.state;
         return (
             <div>
+                <h2 style={{color:'ivory'}}> Lobby </h2>
+                < hr />
                 <div className="myGamesList">
                     {this.mapGames(myGames, this.handleClick)}
                 </div>

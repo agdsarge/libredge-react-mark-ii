@@ -18,7 +18,7 @@ class ContentGrid extends Component {
                     <div></div>
                 </Grid.Column>
                 <Grid.Column width={10} >
-                    <FocusContainer component={this.props.component}/>
+                    <FocusContainer component={this.props.focusComponent}/>
                 </Grid.Column>
                 <Grid.Column width={4} >
                     <SideContainer orientation="right" />

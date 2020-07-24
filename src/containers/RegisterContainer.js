@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { Form, Button } from 'semantic-ui-react'
-import { CountryDropdown } from 'react-country-region-selector'
-import { connect } from 'react-redux'
 
+import { connect } from 'react-redux'
+import RegistrationForm from '../components/RegistrationForm'
 import { REGISTER_URL, HEADERS } from '../constants'
 
 class RegisterContainer extends Component {
@@ -53,7 +52,7 @@ class RegisterContainer extends Component {
     }
 
     render() {
-        let {username, email, password_digest, confirm, country} = this.state
+
         return (
             <div>
                 <br />
@@ -61,54 +60,7 @@ class RegisterContainer extends Component {
                 <h5>Please complete the following fields.</h5>
                 <br />
                 <hr />
-                <Form inverted onSubmit={this.handleSubmit}>
-                    <input type='text'
-                        name='username'
-                        placeholder="* username *"
-                        value={username}
-                        onChange={this.handleChange}
-                        style={{backgroundColor: 'transparent', color: 'ivory'}}
-                    />
-                    <hr />
-                    <input type='password'
-                        name='password_digest'
-                        placeholder="* password *"
-                        value={password_digest}
-                        onChange={this.handleChange}
-                        style={{backgroundColor: 'transparent', color: 'ivory'}}
-                    />
-                    <hr />
-                    <input type='password'
-                        name='confirm'
-                        placeholder="* confirm the password *"
-                        value={confirm}
-                        onChange={this.handleChange}
-                        style={{backgroundColor: 'transparent', color: 'ivory'}}
-                    />
-                    <hr />
-                    <input type='text'
-                        name='email'
-                        placeholder="* email address *"
-                        value={email}
-                        onChange={this.handleChange}
-                        style={{backgroundColor: 'transparent', color: 'ivory'}}
-                    />
-                    <hr />
-                    <CountryDropdown
-                        value={country}
-                        onChange={this.handleChange}
-                        style={{backgroundColor: 'transparent', color: 'ivory'}}
-                    />
-                    <hr />
-                    <input type="submit" value="Sign in"
-                        style={{visibility:'hidden'}} />
-                    <Button inverted color='blue'
-                        onClick={this.props.handleSubmit}
-                        style={{float:'right', margin:'10px'}}>
-                        Register
-                    </Button>
-
-                </Form >
+                <RegistrationForm handleChange={this.handleChange} handleSubmit={this.handleSubmit} newPlayer={this.state}/>
             </div>)
     }
 }

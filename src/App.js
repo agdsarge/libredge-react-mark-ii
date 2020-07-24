@@ -12,6 +12,7 @@ import ContentGrid from './containers/ContentGrid'
 import GamesList from './containers/GamesList'
 import NavBar from './components/NavBar'
 import GameplayArea from './components/GameplayArea'
+import Splash from './components/Splash'
 
 class App extends Component {
 
@@ -38,25 +39,26 @@ class App extends Component {
                             this.props.currentUser ?
                                 <Redirect to='/lobby'/>
                                     :
-                                <ContentGrid {...rp} component={<LoginContainer />} />}
+                                <ContentGrid {...rp} focusComponent={<LoginContainer />} />}
                         />
                         <Route exact path='/register' render={(rp) =>
                             this.props.currentUser ? <Redirect to='/lobby' /> :
-                            <ContentGrid {...rp} component={<RegisterContainer />} /> } />
+                            <ContentGrid {...rp} focusComponent={<RegisterContainer />} /> } />
 
                         <Route exact path='/games/:id' render={(rp) =>
                             this.props.currentUser ?
-                                <ContentGrid {...rp} component={< GameplayArea />} />
+                                <ContentGrid {...rp} focusComponent={< GameplayArea />} />
                                     :
                                 <Redirect to='/login' />}
                         />
                         <Route exact path='/lobby' render={(rp) =>
                             this.props.currentUser ?
-                                <ContentGrid {...rp} component={<GamesList />}/>
+                                <ContentGrid {...rp} focusComponent={<GamesList />}/>
                                     :
                                 <Redirect to='/login' />}
                         />
-                        <Route path="*" render={(rp) => <Redirect to='/login' />}/>
+                        <Route exact path='/home' render={(rp) => <Splash {...rp} />}/>
+                        <Route path="*" render={(rp) => <Redirect to='/home' />}/>
 
                     </Switch>
                 </Router>

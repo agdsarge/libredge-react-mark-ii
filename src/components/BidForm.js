@@ -12,6 +12,7 @@ class BidForm extends Component {
             diamondBids: ['1D', '2D', '3D', '4D', '5D', '6D', '7D'],
             heartBids: ['1H', '2H', '3H', '4H', '5H', '6H', '7H'],
             spadeBids: ['1S', '2S', '3S', '4S', '5S', '6S', '7S'],
+            notTrumpBids: ['1NT', '2NT', '3NT', '4NT', '5NT', '6NT', '7NT'],
             error: ''
         }
     }
@@ -69,6 +70,9 @@ class BidForm extends Component {
                 </Button.Group> <hr />
                 <Button.Group widths='7'>
                     {this.state.spadeBids.map(b => <Button key={b} name={b} value={b} onClick={this.handleBid}>{b}</Button>)}
+                </Button.Group> <hr />
+                <Button.Group widths='7'>
+                    {this.state.notTrumpBids.map(b => <Button key={b} name={b} value={b} onClick={this.handleBid}>{b}</Button>)}
                 </Button.Group> <hr />
 
                 <Button fluid name='Pass' value='Pass' onClick={this.handleBid}>Pass</Button> <hr />

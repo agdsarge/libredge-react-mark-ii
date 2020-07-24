@@ -39,6 +39,22 @@ div#cardTable {
     color: ivory;
 }
 
+.splashBackground {
+    height: 100%;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/1/1f/George_Goodwin_Kilburne_A_good_hand.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: ivory;
+    padding-left: 100px;
+    padding-top: 100px;
+    padding-right: 100px;
+
+}
+.veryLarge {
+    font-size: 85px;
+    color: ivory;
+    /* -webkit-text-stroke: 1px black; */
+}
 
 .App {
   text-align: center;
