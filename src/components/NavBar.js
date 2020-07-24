@@ -29,14 +29,18 @@ class NavBar extends Component {
                 <Menu pointing secondary>
                     <Menu.Item name="LIBREDGE" onMouseOver={(e) => this.handleMouse(e, true)} onMouseLeave={(e) => this.handleMouse(e, false)}/>
                     <Menu.Item name="OTHER" onMouseOver={(e) => this.handleMouse(e, true)} onMouseLeave={(e) => this.handleMouse(e, false)}/>
+                    {this.props.currentUser ? <Menu.Item name={this.props.currentUser.username} /> : null }
                     <Menu.Menu position="right">
                         { this.props.currentUser ?
-                            <Menu.Item name="SIGN OUT"
-                                style={{fontSize:'20px'}}
-                                onMouseOver={(e) => this.handleMouse(e, true)}
-                                onMouseLeave={(e) => this.handleMouse(e, false)}
-                                onClick={this.handleLogOut}
-                            />
+                            <div>
+
+                                <Menu.Item name="SIGN OUT"
+                                    style={{fontSize:'20px'}}
+                                    onMouseOver={(e) => this.handleMouse(e, true)}
+                                    onMouseLeave={(e) => this.handleMouse(e, false)}
+                                    onClick={this.handleLogOut}
+                                />
+                            </div>
                             :
                             <NavLink
         						to="/login"

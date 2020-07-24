@@ -28,8 +28,6 @@ class GamesList extends Component {
     }
 
     handleClick = game => {
-        // this.setState({ activeGameID: id })
-        // this.setState({activeGame: this.findActiveGame(this.state.myGames, this.state.activeGameID)})
         this.props.dispatch({type: 'SET_GAME', payload: game})
     };
 

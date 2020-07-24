@@ -9,6 +9,7 @@ import { API_ROOT, HEADERS } from '../constants'
 
 import Hand from '../components/Hand'
 import BidForm from '../components/BidForm'
+import AuctionTable from '../components/AuctionTable'
 
 class GameplayArea extends Component {
     //this.props.game is a game object => { id, memorable_string_name, final_score, deals}
@@ -101,7 +102,13 @@ class GameplayArea extends Component {
 
             <div id="cardTable">
 
-                {this.props.currentBidPhase ? <BidForm deal={this.state.activeDeal}/> : null}
+                {this.props.currentBidPhase ?
+                    <div id='auction' >
+                        <BidForm deal={this.state.activeDeal}/>
+                        <AuctionTable game={this.props.currentGame} />
+                    </div >
+                : null}
+
                 <div id='tricks'> </ div>
 
                 < Hand hand={this.state.myHand} />
