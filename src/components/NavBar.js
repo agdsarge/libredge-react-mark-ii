@@ -27,9 +27,16 @@ class NavBar extends Component {
         return (
             <div id='navBarMenuSemantic'>
                 <Menu pointing secondary>
-                    <Menu.Item name="LIBREDGE" onMouseOver={(e) => this.handleMouse(e, true)} onMouseLeave={(e) => this.handleMouse(e, false)}/>
-                    <Menu.Item name="OTHER" onMouseOver={(e) => this.handleMouse(e, true)} onMouseLeave={(e) => this.handleMouse(e, false)}/>
-                    {this.props.currentUser ? <Menu.Item name={this.props.currentUser.username} /> : null }
+                    <NavLink to='/home' >
+                        <Menu.Item style={{fontSize:'20px'}} onMouseOver={(e) => this.handleMouse(e, true)} onMouseLeave={(e) => this.handleMouse(e, false)}> LIBREDGE </Menu.Item >
+                    </NavLink >
+
+                    {this.props.currentUser ?
+                        <NavLink to='/lobby' >
+                            <Menu.Item style={{fontSize:'20px'}} name={this.props.currentUser.username} />
+                        </NavLink >
+                            : null
+                    }
                     <Menu.Menu position="right">
                         { this.props.currentUser ?
                             <div>

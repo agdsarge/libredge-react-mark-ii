@@ -62,17 +62,13 @@ class App extends Component {
 
                     </Switch>
                 </Router>
-
-
             </div>
         )
     }
 }
 
 const mapStateToProps = (state) => {
-    return {
-        currentUser: state.currentUser,
-        currentRoute: state.currentRoute}
+    return {currentUser: state.currentUser}
 }
 
 export default connect(mapStateToProps)(App)

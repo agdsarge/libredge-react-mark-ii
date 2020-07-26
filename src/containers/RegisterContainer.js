@@ -47,7 +47,8 @@ class RegisterContainer extends Component {
                     confirm: '',
                     country: ''
                 })
-                this.props.dispatch({type: "SET_USER", payload: data})})
+                this.props.dispatch({type: "SET_USER", payload: data})
+            })
         }
     }
 

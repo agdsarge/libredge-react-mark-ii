@@ -6,7 +6,6 @@ import { Button } from 'semantic-ui-react'
 
 import { API_ROOT } from '../constants'
 
-
 class GamesList extends Component {
     constructor(props) {
         super(props)
@@ -14,7 +13,6 @@ class GamesList extends Component {
             myGames: []
         };
     }
-
 
     componentDidMount = () => {
         if (this.props.currentUser) {
@@ -63,7 +61,6 @@ class GamesList extends Component {
         );
     };
 }
-
 
 
 const mapStateToProps = (state) => {

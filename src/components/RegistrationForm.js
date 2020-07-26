@@ -7,8 +7,7 @@ class RegistrationForm extends Component {
     render() {
         let {username, password_digest, confirm, email, country} = this.props.newPlayer
         return (
-            <div>
-                
+            <div>            
                 <Form inverted onSubmit={this.props.handleSubmit}>
                     <input type='text'
                         name='username'
@@ -58,10 +57,6 @@ class RegistrationForm extends Component {
 
                 </Form >
             </div>
-
-
-
-
         )
     }
 }

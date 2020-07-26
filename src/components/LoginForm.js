@@ -4,9 +4,6 @@ import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 class LoginForm extends Component {
-    // handleDispatch = (e) => {
-    //     this.props.dispatch({type: "SET_ROUTE", payload: "/register"})
-    // }
 
     render(){
         let {username, password} = this.props.newUser
@@ -38,8 +35,8 @@ class LoginForm extends Component {
                         to="/register"
                         exact
                         className="reg"
-                        style={{float:'left', margin:'10px'}}
-                        onClick={this.handleDispatch}>
+                        style={{float:'left', margin:'10px'}} >
+
                         <Button inverted color='blue' >
                             Register a new account
                         </Button>
@@ -58,24 +55,11 @@ class LoginForm extends Component {
                 <br />
             </div >
         )}
-
 }
 
 
 const mapStateToProps = (state) => {
-    return {
-        currentRoute: state.currentRoute
-    }
+    return {}
 }
 
 export default connect(mapStateToProps)(LoginForm)
-
-
-// <NavLink
-//     to="/register"
-//     exact
-//     className="reg"
-//     style={{float:'left', margin:'10px'}}
-//     onClick={this.handleDispatch}>
-//     Register a new account!
-// </NavLink>

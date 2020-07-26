@@ -97,25 +97,13 @@ class GameplayArea extends Component {
 
                 <div id='tricks'> </ div>
 
-                < Hand hand={this.state.myHand} />
+                <Hand hand={this.state.myHand} />
                 <h3 className="centeredPosition" > Your position: {this.props.myPosition} </h3>
             </div>
 
         )
     }
 }
-
-// ({
-//   conversation: { id, title, messages },
-// }) => {
-//   return (
-//     <div className="messagesArea">
-//       <h2>{title}</h2>
-//       <ul>{orderedMessages(messages)}</ul>
-//       <NewMessageForm conversation_id={id} />
-//     </div>
-//   );
-// };
 
 const mapStateToProps = (state) => {
     return {
@@ -139,33 +127,3 @@ export default connect(mapStateToProps)(GameplayArea)
 //     return <li key={message.id}>{message.text}</li>;
 //   });
 // };
-
-
-
-// <div>
-//     <h2> gameplay area </h2>
-//     <p> name: {this.props.game.memorable_string_name} </p>
-//     <p> {this.props.myPosition}</p>
-//
-//     <p> My hand: </p>
-//     <div>
-//         <Card.Group itemsPerRow={7}>
-//             {this.state.myHand.map(card => <Card key={card.ord}> <Image wrapped ui={false} src={card.img} /></ Card>)}
-//         </Card.Group>
-//     </div>
-//     <p> my cards: {this.state.myHand.map(card => card.short)}</p>
-//
-//     <Button onClick={this.handleNewDeal} disabled> New deal </Button>
-//     <h2> bidding! </h2>
-//     <div id="biddingForm">
-//         <Button.Group onClick={this.handleBid} buttons={['1Club', '2Club', '3Club', '4Club', '5Club', '6Club', '7Club']} /> <hr />
-//         <Button.Group onClick={this.handleBid} buttons={['1Diamond', '2Diamond', '3Diamond', '4Diamond', '5Diamond', '6Diamond', '7Diamond']} /> <hr />
-//         <Button.Group onClick={this.handleBid} buttons={['1Heart', '2Heart', '3Heart', '4Heart', '5Heart', '6Heart', '7Heart']} /> <hr />
-//         <Button.Group onClick={this.handleBid} buttons={['1Spade', '2Spade', '3Spade', '4Spade', '5Spade', '6Spade', '7Spade']} /> <hr />
-//         <Button.Group onClick={this.handleBid} buttons={['1NT', '2NT', '3NT', '4NT', '5NT', '6NT', '7NT']} /> <hr />
-//         <Button onClick={this.handleBid} > PASS </Button>
-//     </div>
-//     <div id="truth">
-//         <h1> BID HISTORY: {this.state.activeDeal.bid_history} </h1>
-//     </div>
-// </div>

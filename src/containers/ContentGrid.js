@@ -8,7 +8,6 @@ import FocusContainer from './FocusContainer'
 class ContentGrid extends Component {
     componentDidMount() {
         console.log("CGRID did mount", this.props.match.path)
-        // this.props.dispatch({type: 'SET_ROUTE', payload: this.props.match.path})
     }
 
     render() {
@@ -21,7 +20,7 @@ class ContentGrid extends Component {
                     <FocusContainer component={this.props.focusComponent}/>
                 </Grid.Column>
                 <Grid.Column width={4} >
-                    <SideContainer orientation="right" />
+                    <SideContainer orientation="right" component={null}/>
                 </Grid.Column>
             </Grid>
         )
@@ -30,14 +29,8 @@ class ContentGrid extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        currentRoute: state.currentRoute,
         currentUser: state.currentUser
     }
 }
 
 export default connect(mapStateToProps)(ContentGrid)
-
-//
-// <Grid.Column width={4} >
-//     <SideContainer orientation="left" />
-// </Grid.Column>
