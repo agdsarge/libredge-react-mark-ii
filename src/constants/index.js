@@ -11,4 +11,5 @@ export const JWT_URL = 'http://localhost:3005/api/v1/token'
 export const LOGIN_URL="http://localhost:3005/api/v1/login"
 export const REGISTER_URL="http://localhost:3005/api/v1/players"
 export const DEAL_UPDATE_URL='http://localhost:3005/api/v1/deals'
-export const ALL_OTHER_PLAYERS_URL = 'http://localhost:3005/api/v1/games/new'
+export const ALL_OTHER_PLAYERS_URL = 'http://localhost:3005/api/v1/games/available_players'
+export const NEW_GAME_URL = 'http://localhost:3005/api/v1/games/new'
