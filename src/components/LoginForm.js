@@ -36,7 +36,6 @@ class LoginForm extends Component {
                         exact
                         className="reg"
                         style={{float:'left', margin:'10px'}} >
-
                         <Button inverted color='blue' >
                             Register a new account
                         </Button>

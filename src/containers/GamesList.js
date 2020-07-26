@@ -37,6 +37,7 @@ class GamesList extends Component {
                         <Button >{game["memorable_string_name"]} </Button>
                     </Link>
                     <br />
+                    <br />
                 </div>)
         })
     }
@@ -51,8 +52,8 @@ class GamesList extends Component {
     render = () => {
         const { myGames } = this.state;
         return (
-            <div>
-                <h2 style={{color:'ivory'}}> Lobby </h2>
+            <div className="lobbyList">
+                <h2 style={{color:'ivory'}}> Open Games </h2>
                 < hr />
                 <div className="myGamesList">
                     {this.mapGames(myGames, this.handleClick)}

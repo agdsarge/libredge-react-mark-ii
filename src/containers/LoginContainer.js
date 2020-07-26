@@ -40,9 +40,7 @@ class LoginContainer extends Component {
     }
 
     render() {return(
-        <div style={{backdropFilter: 'blur(5px)'}}>
-            <LoginForm handleSubmit={this.handleSubmit} handleChange={this.handleChange} newUser={this.state}/>
-        </div>
+        <LoginForm handleSubmit={this.handleSubmit} handleChange={this.handleChange} newUser={this.state}/>
     )}
 }
 

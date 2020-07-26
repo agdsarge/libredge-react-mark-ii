@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {Form, Button} from 'semantic-ui-react'
+import { Button } from 'semantic-ui-react'
 import {DEAL_UPDATE_URL, HEADERS } from '../constants'
 
 
@@ -32,7 +32,7 @@ class BidForm extends Component {
 
     handleBid = (e) => {
         console.log(e.target.value)
-        let [denom, suit] = e.target.value.split('')
+        // let [denom, suit] = e.target.value.split('')
         let bid = e.target.value + ':'
 
         // if 3 passes are the last bids, and you pass, end the bid phase

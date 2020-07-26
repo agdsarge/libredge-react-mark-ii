@@ -7,7 +7,7 @@ import FocusContainer from './FocusContainer'
 
 class ContentGrid extends Component {
     componentDidMount() {
-        console.log("CGRID did mount", this.props.match.path)
+        console.log("CGRID did mount", this.props)
     }
 
     render() {
@@ -20,7 +20,7 @@ class ContentGrid extends Component {
                     <FocusContainer component={this.props.focusComponent}/>
                 </Grid.Column>
                 <Grid.Column width={4} >
-                    <SideContainer orientation="right" component={null}/>
+                    <SideContainer rp={this.props} component={null}/>
                 </Grid.Column>
             </Grid>
         )

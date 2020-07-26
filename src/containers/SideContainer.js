@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 
-import { DEAL_UPDATE_URL } from '../constants'
+// import { DEAL_UPDATE_URL } from '../constants'
 // import ChatContainer from './ChatContainer'
 
 class SideContainer extends Component{
@@ -14,9 +15,11 @@ class SideContainer extends Component{
     }
 
     // componentDidMount() {
-    //     this.bidPoll()
+    //     console.log(this.props)
     // }
     //
+
+
     // bidPoll = () => {
     //     console.log("BID POLL", this.props.currentGame)
     //     let gameID = this.props.currentGame.id
@@ -33,14 +36,24 @@ class SideContainer extends Component{
         // .then(() => this.state.activeDeal['bid_history'])
         // .then(() => "TEST")
 
+    componentSelector = () => {
+        if (this.props.rp.match.path === '/lobby') {
+            return <NavLink exact to='/new_game' ><Button inverted color='blue' style={{marginTop:'5px'}}> NEW GAME </Button> </NavLink>
+        } else if (this.props.rp.match.path.startsWith('/game')) {
+            return <p> GAME! </p>
+        }
 
+        else {
+            return <p> test </p>
+        }
+
+    }
 
 
     render() {
         return (
             <div id="sideContainer">
-                <Button inverted color='blue' style={{marginTop:'30%'}}> NEW GAME </Button>
-
+                {this.componentSelector()}
             </div>
         )
     }
@@ -58,15 +71,3 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(SideContainer)
-
-// currentUser: null,
-
-// currentGame: null,
-// currentBidPhase: null,
-// currentContract: {
-//     contract: '', // '1.S', '5.NT'
-//     trumpSuit: '' // 'S', 'NT'
-// },
-// myPosition: null
-
-// /{this.props.currentBidPhase ? <h2> Current bid: {this.state.activeDeal["bid_history"]}</h2>: null}

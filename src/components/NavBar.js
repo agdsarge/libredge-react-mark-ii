@@ -14,54 +14,40 @@ class NavBar extends Component {
         localStorage.clear()
     }
 
-    handleDispatch = (e) => {
-        this.props.dispatch({type: "SET_ROUTE", payload: '/login'})
-    }
-
-    handleDispatch2 = (e) => {
-        this.props.dispatch({type: "SET_ROUTE", payload: '/game'})
-    }
-
     render() {
 
         return (
             <div id='navBarMenuSemantic'>
-                <Menu pointing secondary>
+                <Menu pointing secondary style={{fontSize:'20px'}} onMouseOver={(e) => this.handleMouse(e, true)} onMouseLeave={(e) => this.handleMouse(e, false)}>
                     <NavLink to='/home' >
-                        <Menu.Item style={{fontSize:'20px'}} onMouseOver={(e) => this.handleMouse(e, true)} onMouseLeave={(e) => this.handleMouse(e, false)}> LIBREDGE </Menu.Item >
+                        <Menu.Item  name="LIBREDGE" />
                     </NavLink >
 
                     {this.props.currentUser ?
-                        <NavLink to='/lobby' >
-                            <Menu.Item style={{fontSize:'20px'}} name={this.props.currentUser.username} />
+                        <NavLink to='/lobby' exact >
+                            <Menu.Item name={this.props.currentUser.username} />
                         </NavLink >
                             : null
                     }
                     <Menu.Menu position="right">
                         { this.props.currentUser ?
+                            <Menu.Item name="SIGN OUT" onClick={this.handleLogOut} />
+                                :
                             <div>
-
-                                <Menu.Item name="SIGN OUT"
-                                    style={{fontSize:'20px'}}
-                                    onMouseOver={(e) => this.handleMouse(e, true)}
-                                    onMouseLeave={(e) => this.handleMouse(e, false)}
-                                    onClick={this.handleLogOut}
-                                />
-                            </div>
-                            :
                             <NavLink
-        						to="/login"
-        						exact
-        						className="reg"
-                                style={{float:'left', fontSize:'20px', marginTop:'18px', marginRight: '18px'}}
-                                onMouseOver={(e) => this.handleMouse(e, true)}
-                                onMouseLeave={(e) => this.handleMouse(e, false)}
-                                onClick={this.handleDispatch}>
-                                <Menu.Item name="SIGN IN"
-                                    style={{fontSize:'20px'}}
-                                />
+        						to="/register" exact
+                                style={{float:'left'}}
+                            >
+                                <Menu.Item name="REGISTER" />
                             </NavLink>
-                    }
+                            <NavLink
+        						to="/login" exact
+                                style={{float:'left', marginRight: '18px'}}
+                            >
+                                <Menu.Item name="SIGN IN" />
+                            </NavLink>
+                            </div>
+                        }
                     </Menu.Menu>
                 </Menu>
             </div>
@@ -70,10 +56,7 @@ class NavBar extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return {
-        currentUser: state.currentUser,
-        currentRoute: state.currentRoute
-    }
+    return { currentUser: state.currentUser }
 }
 
 export default connect(mapStateToProps)(NavBar)

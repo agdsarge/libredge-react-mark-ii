@@ -12,6 +12,7 @@ import ContentGrid from './containers/ContentGrid'
 import GamesList from './containers/GamesList'
 import NavBar from './components/NavBar'
 import GameplayArea from './components/GameplayArea'
+import NewGameContainer from './containers/NewGameContainer'
 import Splash from './components/Splash'
 
 class App extends Component {
@@ -54,6 +55,12 @@ class App extends Component {
                         <Route exact path='/lobby' render={(rp) =>
                             this.props.currentUser ?
                                 <ContentGrid {...rp} focusComponent={<GamesList />}/>
+                                    :
+                                <Redirect to='/login' />}
+                        />
+                        <Route exact path='/new_game' render={(rp) =>
+                            this.props.currentUser ?
+                                <ContentGrid {...rp} focusComponent={<NewGameContainer />}/>
                                     :
                                 <Redirect to='/login' />}
                         />
