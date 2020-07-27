@@ -9,9 +9,9 @@ class Splash extends Component {
             <div className='splashBackground' >
                 <div className='veryLarge'> Welcome to <span style={{color:'cornflowerBlue'}}>LiBre</span>dge! </div>
                 <br /> <hr />
-                <div style={{backgroundColor: 'rgba(112,128,144,0.65)', marginRight: '550px'}}>
+                <div style={{backgroundColor: 'rgba(112,128,144,0.65)', backdropFilter: 'blur(5px)', marginRight: '550px'}}>
                     <h2> Play contract bridge online. </h2>
-                    <h2> LiBredge is free. </h2>
+                    <h2> LiBredge is <span style={{color:'cornflowerBlue'}}>free</span>. </h2>
                     <h2> LiBredge always will be free. </h2>
                     {this.props.currentUser ?
                         <h2>You may see your games in the <NavLink to='/lobby' exact>lobby.</NavLink></h2>

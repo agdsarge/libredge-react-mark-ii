@@ -10,19 +10,31 @@ class GamesList extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            myGames: []
+            myGames: [],
+            intervalID: null
         };
     }
 
     componentDidMount = () => {
+
         if (this.props.currentUser) {
-            fetch(`${API_ROOT}/lobby/${this.props.currentUser.id}`)
-            .then(res => res.json())
-            .then(games => {
-                if (!games.error){
-                    this.setState({ myGames: games })}
-            })
+            this.gamesFetcher()
+            let id = setInterval(this.gamesFetcher, 5000)
+            this.setState({intervalID: id})
         }
+    }
+
+    componentWillUnmount = () => {
+        clearInterval(this.state.intervalID)
+    }
+
+    gamesFetcher = () => {
+        fetch(`${API_ROOT}/lobby/${this.props.currentUser.id}`)
+        .then(res => res.json())
+        .then(games => {
+            if (!games.error){
+                this.setState({ myGames: games })}
+        })
     }
 
     handleClick = game => {

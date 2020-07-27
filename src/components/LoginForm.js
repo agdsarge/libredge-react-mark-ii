@@ -31,15 +31,7 @@ class LoginForm extends Component {
                         style={{backgroundColor: 'transparent', color: 'ivory'}}
                     />
                     <hr />
-                    <NavLink
-                        to="/register"
-                        exact
-                        className="reg"
-                        style={{float:'left', margin:'10px'}} >
-                        <Button inverted color='blue' >
-                            Register a new account
-                        </Button>
-                    </NavLink>
+
 
                     <input type="submit" value="Sign in"
                         style={{visibility:'hidden'}} />
@@ -51,6 +43,15 @@ class LoginForm extends Component {
                     <br />
 
                 </Form>
+                <NavLink
+                    to="/register"
+                    exact
+                    className="reg"
+                    style={{float:'left', marginLeft:'10px', marginTop: '25px'}} >
+                    <Button inverted color='blue' >
+                        Register a new account
+                    </Button>
+                </NavLink>
                 <br />
             </div >
         )}
