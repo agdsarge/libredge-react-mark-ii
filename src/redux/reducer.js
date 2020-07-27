@@ -17,7 +17,7 @@ const reducer = (state=initialState, action) => {
         // case 'SET_ROUTE':
         //     return {...state, currentRoute: action.payload}
         case 'SET_CONTRACT':
-            return {...state, currentDeal: {contract: action.payload, trumpSuit: action.payload.split('.')[1]}}
+            return {...state, currentContract: {contract: action.payload, trumpSuit: action.payload.split('.')[1]}}
         case 'SET_GAME':
             return {...state, currentGame: action.payload}
         case 'SET_POSITION':

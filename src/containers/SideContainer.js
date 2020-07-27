@@ -42,7 +42,9 @@ class SideContainer extends Component{
         } else if (this.props.rp.match.path.startsWith('/game')) {
             return <p> GAME! </p>
         } else if (this.props.rp.match.path === '/new_game') {
-            return <NavLink exact to='/lobby' ><Button inverted color='blue' style={{marginTop:'5px'}}> BACK TO LOBBY </Button> </NavLink>
+            return <NavLink exact to='/lobby' >
+                        <Button inverted color='blue' style={{marginTop:'5px'}}> BACK TO LOBBY </Button>
+                    </NavLink>
         } else {
             return <p> test </p>
         }
@@ -66,7 +68,6 @@ const mapStateToProps = (state) => {
         currentGame: state.currentGame,
         currentBidPhase: state.currentBidPhase,
         currentContract: state.currentContract
-        // currentRoute: state.currentRoute
     }
 }
 

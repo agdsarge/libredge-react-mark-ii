@@ -16,7 +16,6 @@ class GamesList extends Component {
     }
 
     componentDidMount = () => {
-
         if (this.props.currentUser) {
             this.gamesFetcher()
             let id = setInterval(this.gamesFetcher, 5000)
@@ -82,15 +81,3 @@ const mapStateToProps = (state) => {
 
 
 export default connect(mapStateToProps)(GamesList)
-
-
-
-//
-// <h2>my open games: (currently selected: {this.props.currentGame})</h2>
-// <div>{this.mapGames(myGames, this.handleClick)}</div>
-// {/*<NewGamesForm />*/}
-//
-// {activeGameID ?
-//      <GameplayArea game={this.findActiveGame(myGames, activeGameID)} />
-//         :
-//     null}

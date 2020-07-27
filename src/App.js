@@ -11,7 +11,7 @@ import RegisterContainer from './containers/RegisterContainer'
 import ContentGrid from './containers/ContentGrid'
 import GamesList from './containers/GamesList'
 import NavBar from './components/NavBar'
-import GameplayArea from './components/GameplayArea'
+import GameplayArea from './containers/GameplayArea'
 import NewGameContainer from './containers/NewGameContainer'
 import Splash from './components/Splash'
 

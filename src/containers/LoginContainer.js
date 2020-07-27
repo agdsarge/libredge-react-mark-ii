@@ -40,7 +40,9 @@ class LoginContainer extends Component {
     }
 
     render() {return(
-        <LoginForm handleSubmit={this.handleSubmit} handleChange={this.handleChange} newUser={this.state}/>
+        <div style={{padding: '20px'}}>
+            <LoginForm handleSubmit={this.handleSubmit} handleChange={this.handleChange} newUser={this.state}/>
+        </div>
     )}
 }
 
