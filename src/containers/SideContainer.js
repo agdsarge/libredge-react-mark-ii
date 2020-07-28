@@ -48,7 +48,6 @@ class SideContainer extends Component{
         } else {
             return <p> test </p>
         }
-
     }
 
 

@@ -17,40 +17,23 @@ class BidForm extends Component {
         // console.log(this.props.deal)
     }
 
-    distanceFromDealer = (myPosition, dealerPosition) => {
-        // let seats = ['north', 'east', 'south', 'west']
-        // let me = seats.indexOf(myPosition)
-        // let dealer = seats.indexOf(dealerPosition)
-        // return Math.abs(dealer - me)
-        // no, dummy
-
-    }
-
-    bidLogic = () => {
-
-    }
-
-
-
-
     generateForm() {
-        return ["C", "D", "H", "S", "NT"].map( s => {
+        return ["C", "D", "H", "S", "NT"].map( suit => {
             return(
-                <div>
-                <Button.Group key={s} widths='7'>
-                    {['1', '2', '3', '4', '5', '6', "7"].map(n =>
+                <div key={suit}>
+                <Button.Group  widths='7' style={{marginBottom: '5px'}}>
+                    {['1', '2', '3', '4', '5', '6', "7"].map(denomination =>
                     <Button
-                        key={`${n}${s}`}
-                        name={`${n}${s}`}
-                        value={`${n}${s}`}
+                        key={denomination}
+                        name={`${denomination}${suit}`}
+                        value={`${denomination}${suit}`}
                         onClick={this.props.handleBid}
                     >
-                        {`${n}${s}`}
+                        {`${denomination}${suit}`}
                     </Button>)}
                 </Button.Group >
                 </div>)
         })
-
     }
 
 
@@ -62,7 +45,6 @@ class BidForm extends Component {
                 {this.generateForm()}
                 <Button fluid name='Pass' value='Pass' onClick={this.props.handleBid}>Pass</Button> <hr />
             </div>
-
         )
     }
 }
@@ -70,6 +52,5 @@ class BidForm extends Component {
 const mapStateToProps = (state) => {
     return {currentGame: state.currentGame}
 }
-
 
 export default connect(mapStateToProps)(BidForm)

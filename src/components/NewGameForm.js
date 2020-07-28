@@ -19,12 +19,12 @@ class NewGameForm extends Component {
         let {east, south, west} = this.props
         let opts = this.openSeats()
         return(
-            <Form  onSubmit={this.props.handleSubmit}>
+            <Form onSubmit={this.props.handleSubmit}>
                 <p> North, by default is you, {this.props.currentUser.username} </p>
                 <div>
                     <Dropdown
                         onChange={this.props.handleChange}
-                        style={{color:'black'}}
+
                         placeholder='West'
                         value={west}
                         search

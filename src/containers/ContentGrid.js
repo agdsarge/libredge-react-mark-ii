@@ -20,8 +20,10 @@ class ContentGrid extends Component {
                     <FocusContainer component={this.props.focusComponent}/>
                 </Grid.Column>
                 <Grid.Column width={4} >
-                    {(this.props.match.path == "/login" || this.props.match.path == '/register') ? null : <SideContainer rp={this.props} component={null}/>}
-
+                    {(this.props.match.path === "/login" || this.props.match.path === '/register') ?
+                        null
+                            :
+                        <SideContainer rp={this.props} component={null}/>}
                 </Grid.Column>
             </Grid>
         )

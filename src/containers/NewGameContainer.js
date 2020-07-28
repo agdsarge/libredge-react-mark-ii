@@ -27,7 +27,9 @@ class NewGameContainer extends Component {
     }
 
     handleChange = (e, data) => {
-        // console.log(data)
+        // let's work with this.
+        // take a look at NewGameForm#openSeats 
+        console.log("DROPDOWN", data)
         let id = data.value
         let position = data.placeholder.toLowerCase()
         // console.log({[position]: id})
@@ -64,7 +66,14 @@ class NewGameContainer extends Component {
         let {allRegisteredPlayers, east, south, west, redirect} = this.state
         return(
             <div>
-                <NewGameForm players={allRegisteredPlayers} east={east} south={south} west={west} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
+                <NewGameForm
+                    players={allRegisteredPlayers}
+                    east={east}
+                    south={south}
+                    west={west}
+                    handleChange={this.handleChange}
+                    handleSubmit={this.handleSubmit}
+                />
                 {redirect ? <Redirect to='/lobby' /> : null}
             </div>
         )

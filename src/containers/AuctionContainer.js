@@ -3,11 +3,11 @@ import { connect } from 'react-redux'
 
 import BidForm from '../components/BidForm'
 import AuctionTable from '../components/AuctionTable'
-
+import {HEADERS, DEAL_UPDATE_URL } from '../constants'
 
 class AuctionContainer extends Component {
     constructor(props) {
-        super(props) //deal = activeDeal; 
+        super(props) //deal = activeDeal; distance = num
         this.state = {
             proposedBid: '',
             bidHistory: ''
@@ -15,17 +15,109 @@ class AuctionContainer extends Component {
     }
 
     componentDidMount() {
+        this.setState({
+            bidHistory: this.props.deal['bid_history']
+        })
+    }
+
+    componentWillUnmount() {
 
     }
 
-    bidLogic = () => {
+    pastBidCount = () => {
+        let dist = this.props.distance
+        let hist = this.state.bidHistory
+        let semicolonCount = 0
+        for (let char of hist) {
+            if (char === ';') {
+                semicolonCount += 1
+            }
+        }
+        return (semicolonCount % 4 !== dist)
+    }
+
+
+
+    increment = (bid) => {
+        if (this.state.bidHistory === '') {
+            return false
+        }
+        if (bid.includes('Pass')) {
+            return false
+        } else {
+            //'north.3C'
+            let bidHistoryArray = this.state.bidHistory.split(';').slice(0,-1)
+            while (bidHistoryArray[bidHistoryArray.length - 1].includes('Pass')) {
+                bidHistoryArray = bidHistoryArray.slice(0, -1)
+            }
+            if (bidHistoryArray.length === 0) {
+                return false
+            } else {
+
+                let last = bidHistoryArray[bidHistoryArray.length - 1]
+
+                let lastBidStr = last.split('.')[1]
+                let bidStr  = bid.split('.')[1]
+
+                let denomRegEx = /\d/
+                let suitRegEx = /\D+/
+
+                let denomZero = lastBidStr.match(denomRegEx)[0]
+                let denomOne = bidStr.match(denomRegEx)[0]
+
+                let suitZero = lastBidStr.match(suitRegEx)[0]
+                let suitOne = bidStr.match(suitRegEx)[0]
+
+                if ([denomZero, suitZero] === [denomOne, suitOne]) {
+                    return true
+                } else if (denomZero > denomOne) {
+                    return true
+                } else if (denomZero < denomOne) {
+                    return false
+                }
+                // hereafter, it is necessarily the case that
+                // d0 == d1
+
+                else if (suitOne === 'NT') {
+                    return false
+                } else if (suitZero === 'NT') {
+                    return true
+                } else {
+                    return suitZero < suitOne
+                }
+            }
+        }
+    }
+
+    bidAnalysis() {
+        let copy = this.state.bidHistory
 
     }
 
     handleBid = (e) => {
-        console.log(e.target.value)
-        let bid = `${this.props.myPosition}.{e.target.value};`
-
+        if (this.props.distance !== 0 && this.state.bidHistory === '') {
+            alert('Dealer will open the auction with a bid or a pass. Please wait.')
+        } else if (this.pastBidCount()) {
+            alert("It is not yet your turn. Play proceeds around the table clockwise.")
+        } else {
+            let bid = `${this.props.myPosition}.${e.target.value};`
+            if (this.increment(bid)) {
+                alert("You must Pass or surpass the previous bid.")
+            } else {
+                fetch(`${DEAL_UPDATE_URL}/${this.props.deal.id}`, {
+                    method: "PUT",
+                    headers: HEADERS,
+                    body: JSON.stringify({'bid_history': bid})
+                })
+                .then(res => res.json())
+                .then(d => {
+                    console.log(d)
+                    this.setState({bidHistory: d.history})
+                })
+                .then(console.log(this.state.bidHistory))
+                .then(this.bidAnalysis())
+            }
+        }
     }
 
     render() {
