@@ -13,3 +13,5 @@ export const REGISTER_URL =         `${API_ROOT}/players`
 export const DEAL_UPDATE_URL =      `${API_ROOT}/deals`
 export const ALL_OTHER_PLAYERS_URL = `${API_ROOT}/games/available_players`
 export const NEW_GAME_URL =         `${API_ROOT}/games/new`
+
+export const REFRESH_RATE =         5000

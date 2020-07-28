@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button } from 'semantic-ui-react'
-import {DEAL_UPDATE_URL, HEADERS } from '../constants'
-
 
 class BidForm extends Component {
     constructor(props) {

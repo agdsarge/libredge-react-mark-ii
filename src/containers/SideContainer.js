@@ -38,12 +38,12 @@ class SideContainer extends Component{
 
     componentSelector = () => {
         if (this.props.rp.match.path === '/lobby') {
-            return <NavLink exact to='/new_game' ><Button inverted color='blue' style={{marginTop:'5px'}}> NEW GAME </Button> </NavLink>
+            return <NavLink exact to='/new_game' ><Button color='blue' style={{marginTop:'5px'}}> NEW GAME </Button> </NavLink>
         } else if (this.props.rp.match.path.startsWith('/game')) {
             return <p> GAME! </p>
         } else if (this.props.rp.match.path === '/new_game') {
             return <NavLink exact to='/lobby' >
-                        <Button inverted color='blue' style={{marginTop:'5px'}}> BACK TO LOBBY </Button>
+                        <Button color='blue' style={{marginTop:'5px'}}> BACK TO LOBBY </Button>
                     </NavLink>
         } else {
             return <p> test </p>

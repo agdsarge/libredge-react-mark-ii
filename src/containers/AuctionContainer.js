@@ -3,14 +3,14 @@ import { connect } from 'react-redux'
 
 import BidForm from '../components/BidForm'
 import AuctionTable from '../components/AuctionTable'
-import {HEADERS, DEAL_UPDATE_URL } from '../constants'
+import {HEADERS, DEAL_UPDATE_URL, REFRESH_RATE } from '../constants'
 
 class AuctionContainer extends Component {
     constructor(props) {
         super(props) //deal = activeDeal; distance = num
         this.state = {
-            proposedBid: '',
-            bidHistory: ''
+            bidHistory: '',
+            intervalID: null
         }
     }
 
@@ -18,10 +18,21 @@ class AuctionContainer extends Component {
         this.setState({
             bidHistory: this.props.deal['bid_history']
         })
+        let id = setInterval(this.historyFetcher, REFRESH_RATE)
+        this.setState({invervalID: id})
+
     }
 
     componentWillUnmount() {
+        clearInterval(this.state.intervalID)
+    }
 
+    historyFetcher = () => {
+        fetch(`${DEAL_UPDATE_URL}/history/${this.props.deal.id}`)
+        .then(res => res.json())
+        .then(d => {
+            this.setState({bidHistory: d.history})
+        })
     }
 
     pastBidCount = () => {
@@ -46,7 +57,7 @@ class AuctionContainer extends Component {
         } else {
             //'north.3C'
             let bidHistoryArray = this.state.bidHistory.split(';').slice(0,-1)
-            while (bidHistoryArray[bidHistoryArray.length - 1].includes('Pass')) {
+            while ((bidHistoryArray.length > 0)  && (bidHistoryArray[bidHistoryArray.length - 1].includes('Pass')) ) {
                 bidHistoryArray = bidHistoryArray.slice(0, -1)
             }
             if (bidHistoryArray.length === 0) {
@@ -77,12 +88,12 @@ class AuctionContainer extends Component {
                 // hereafter, it is necessarily the case that
                 // d0 == d1
 
-                else if (suitOne === 'NT') {
+                else if (suitOne === 'NT;') {
                     return false
                 } else if (suitZero === 'NT') {
                     return true
                 } else {
-                    return suitZero < suitOne
+                    return suitZero > suitOne
                 }
             }
         }
@@ -127,7 +138,8 @@ class AuctionContainer extends Component {
 const mapStateToProps = (state) => {
     return {
         currentUser: state.currentUser,
-        myPosition: state.myPosition
+        myPosition: state.myPosition,
+        currentGame: state.currentGame
     }
 }
 

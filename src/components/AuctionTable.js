@@ -3,12 +3,10 @@ import { connect } from 'react-redux'
 import { Table } from 'semantic-ui-react'
 
 class AuctionTable extends Component {
-    // str = () => {
-    //     return this.props.game.bid_history
-    // }
+
 
     componentDidMount() {
-        console.log("AUCTION TABLE", this.props.history)
+        // console.log("AUCTION TABLE", this.props.history)
         // console.log(this.props.game.deals.slice(-1)[[0]]['bid_history'])
     }
 
@@ -26,7 +24,7 @@ class AuctionTable extends Component {
 
         let rows = history.split(firstCol)
         rows.shift()
-        let cells = rows.map(r => r.split(';'))
+        let cells = rows.map(r => r.split(';').filter(e => e !== ''))
         let tableBody = cells.map( c => {
             keyIndex += 1
             return(<Table.Row key={keyIndex}>
@@ -42,7 +40,7 @@ class AuctionTable extends Component {
         })
 
         return (
-            <Table celled >
+            <Table celled textAlign='center'>
                 <Table.Header >
                     <Table.Row>
                         {cols.map(direction =>

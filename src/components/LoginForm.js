@@ -35,7 +35,7 @@ class LoginForm extends Component {
 
                     <input type="submit" value="Sign in"
                         style={{visibility:'hidden'}} />
-                    <Button inverted color='blue'
+                    <Button color='blue'
                         onClick={this.props.handleSubmit}
                         style={{float:'right', margin:'10px'}}>
                         Sign in
@@ -48,7 +48,7 @@ class LoginForm extends Component {
                     exact
                     className="reg"
                     style={{float:'left', marginLeft:'10px', marginTop: '25px'}} >
-                    <Button inverted color='blue' >
+                    <Button color='blue' >
                         Register a new account
                     </Button>
                 </NavLink>

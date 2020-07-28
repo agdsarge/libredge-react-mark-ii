@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import { Button } from 'semantic-ui-react'
 
-import { API_ROOT } from '../constants'
+import { API_ROOT, REFRESH_RATE } from '../constants'
 
 class GamesList extends Component {
     constructor(props) {
@@ -18,7 +18,7 @@ class GamesList extends Component {
     componentDidMount = () => {
         if (this.props.currentUser) {
             this.gamesFetcher()
-            let id = setInterval(this.gamesFetcher, 5000)
+            let id = setInterval(this.gamesFetcher, REFRESH_RATE)
             this.setState({intervalID: id})
         }
     }

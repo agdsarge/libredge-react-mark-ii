@@ -5,11 +5,9 @@ import React, { Component } from 'react';
 // Button, Form
 
 import { connect } from 'react-redux'
-import { API_ROOT, HEADERS } from '../constants'
+import { API_ROOT } from '../constants'
 
 import Hand from '../components/Hand'
-import BidForm from '../components/BidForm'
-import AuctionTable from '../components/AuctionTable'
 
 import AuctionContainer from './AuctionContainer'
 
@@ -20,8 +18,7 @@ class GameplayArea extends Component {
         this.state = {
             activeDeal: {},
             myHand: [],
-            distanceFromDealer: null
-
+            distanceFromDealer: null,
         }
     }
 
@@ -29,6 +26,7 @@ class GameplayArea extends Component {
         if (!this.props.myPosition) {
             this.determineMyPosition()
         }
+
     }
 
     componentWillUnmount() {
@@ -74,7 +72,7 @@ class GameplayArea extends Component {
     calculateDistanceFromDealer = (dealer, player) => {
         if (dealer === player) {this.setState({distanceFromDealer: 0})}
         let seats = ["north", "east", "south", "west"]
-        while (dealer != seats[0]) {
+        while (dealer !== seats[0]) {
             seats = seats.unshift(seats.pop())
         }
         this.setState({distanceFromDealer: seats.indexOf(player)})
@@ -86,65 +84,12 @@ class GameplayArea extends Component {
 
     }
 
-    handleBid = (e) => {
-        // console.log(e.target.value) //2C
-        // I am committing all bids to the DB as a string.
-        // Separate bids are delimited with semi-colons
-        // Each bid will be recorded as position.bid;
-        // For example, 'north.1C;east.1H;south.2C;
 
-    }
-
-
-    // handleBid = (e) => {
-    //     console.log(e.target.value)
-    //     // let [denom, suit] = e.target.value.split('')
-    //     let bid = e.target.value + ':'
-    //
-    //     // if 3 passes are the last bids, and you pass, end the bid phase
-    //     // position
-    //     // there must be  count(':') % 4 === distanceFromDealer() for you to bid.
-    //
-    //     //if (bidLogic()) {fetch put. dispatch game} else {alert }
-    //     fetch(`${DEAL_UPDATE_URL}/${this.props.deal.id}`, {
-    //         method: 'PUT',
-    //         headers: HEADERS,
-    //         body: JSON.stringify({'bid_history': bid})
-    //     })
-    //     .then(res => res.json())
-    //     // .then(game => this.props.dispatch({type: 'SET_GAME', payload: game}))
-    //     .then(console.log)
-    //
-    // }
-
-
-    // handleBid = (e) => {
-    //     if (this.state.activeDeal.bid_phase) {
-    //     let bid = e.target.innerText.slice(0,2)
-    //     console.log(bid)
-    //
-    //     let body = {"bid_history": bid}
-    //     console.log(JSON.stringify(body))
-    //     fetch(`${API_ROOT}/deals/${this.state.activeDeal.id}`, {
-    //         method: "PUT",
-    //         headers: HEADERS,
-    //         body: JSON.stringify(body)
-    //     })
-    //     // .then(res => res.json())
-    //     // .then(console.log)
-    // } else {
-    //     alert("bid phase over")
-    // }}
-
-    bid_history_render = () => {
-
-    }
 
     render() {
         return(
 
             <div id="cardTable">
-
                 {this.props.currentBidPhase ?
                     <div id='auction' >
                         <AuctionContainer deal={this.state.activeDeal} distance={this.state.distanceFromDealer}/>

@@ -7,7 +7,7 @@ class RegistrationForm extends Component {
     render() {
         let {username, password_digest, confirm, email, country} = this.props.newPlayer
         return (
-            <div>            
+            <div>
                 <Form inverted onSubmit={this.props.handleSubmit}>
                     <input type='text'
                         name='username'
@@ -49,7 +49,7 @@ class RegistrationForm extends Component {
                     <hr />
                     <input type="submit" value="Sign in"
                         style={{visibility:'hidden'}} />
-                    <Button inverted color='blue'
+                    <Button color='blue'
                         onClick={this.props.handleSubmit}
                         style={{float:'right', margin:'10px'}}>
                         Register
