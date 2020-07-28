@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import BidForm from '../components/BidForm'
 import AuctionTable from '../components/AuctionTable'
-import {HEADERS, DEAL_UPDATE_URL, REFRESH_RATE } from '../constants'
+import {HEADERS, DEAL_UPDATE_URL, REFRESH_RATE, API_ROOT } from '../constants'
 
 class AuctionContainer extends Component {
     constructor(props) {
@@ -19,12 +19,53 @@ class AuctionContainer extends Component {
             bidHistory: this.props.deal['bid_history']
         })
         let id = setInterval(this.historyFetcher, REFRESH_RATE)
-        this.setState({invervalID: id})
-
+        this.setState({intervalID: id})
     }
 
     componentWillUnmount() {
+        console.log("UNMOUNT!!!", this.state.intervalID)
         clearInterval(this.state.intervalID)
+    }
+
+    tally = (str, delim='%') => {
+        let count = 0
+        for (let char of str) {
+            if (char === delim) {
+                count += 1
+            }
+        }
+        return count
+    }
+
+    endAuction = (bool) => {
+        bool ? alert('proceed to play of the hand') : alert("no possible plays. new deal.")
+        if (bool) {
+            fetch(`${DEAL_UPDATE_URL}/${this.props.deal.id}`, {
+                method: 'PUT',
+                headers: HEADERS,
+                body: JSON.stringify({"bid_phase": "ended"})
+            })
+        } else {
+
+        }
+
+    }
+
+    bidAnalysis = () => {
+        console.log("BID ANALYSIS")
+        let copyHistory = this.state.bidHistory
+        if (this.tally(copyHistory) === 4 && this.tally(copyHistory, 'P') === 4) {
+            this.endAuction(false)
+        } else if (this.tally(copyHistory) > 3) {
+
+            let bidHistoryArray = copyHistory.split('%')
+            bidHistoryArray.pop()
+            let len = bidHistoryArray.length
+            console.log(bidHistoryArray)
+            if (bidHistoryArray[len - 1].endsWith('Pass') && bidHistoryArray[len - 2].endsWith('Pass') && bidHistoryArray[len - 3].endsWith('Pass')) {
+                this.endAuction(true)
+            }
+        }
     }
 
     historyFetcher = () => {
@@ -32,18 +73,24 @@ class AuctionContainer extends Component {
         .then(res => res.json())
         .then(d => {
             this.setState({bidHistory: d.history})
+            if (d.end) {
+                //fetch Game
+                //dispatch updated currentGame
+                fetch(`${API_ROOT}/games/${d.game}`)
+                .then(res => res.json())
+                .then(updated_game => {
+                    this.props.dispatch({type: "SET_BID_PHASE", payload: false})
+                    this.props.dispatch({type: "SET_GAME", payload: updated_game})
+
+                })
+            }
         })
     }
 
     pastBidCount = () => {
+
         let dist = this.props.distance
-        let hist = this.state.bidHistory
-        let semicolonCount = 0
-        for (let char of hist) {
-            if (char === ';') {
-                semicolonCount += 1
-            }
-        }
+        let semicolonCount = this.tally(this.state.bidHistory)
         return (semicolonCount % 4 !== dist)
     }
 
@@ -56,7 +103,7 @@ class AuctionContainer extends Component {
             return false
         } else {
             //'north.3C'
-            let bidHistoryArray = this.state.bidHistory.split(';').slice(0,-1)
+            let bidHistoryArray = this.state.bidHistory.split('%').slice(0,-1)
             while ((bidHistoryArray.length > 0)  && (bidHistoryArray[bidHistoryArray.length - 1].includes('Pass')) ) {
                 bidHistoryArray = bidHistoryArray.slice(0, -1)
             }
@@ -88,7 +135,7 @@ class AuctionContainer extends Component {
                 // hereafter, it is necessarily the case that
                 // d0 == d1
 
-                else if (suitOne === 'NT;') {
+                else if (suitOne === 'NT%') {
                     return false
                 } else if (suitZero === 'NT') {
                     return true
@@ -105,7 +152,7 @@ class AuctionContainer extends Component {
         } else if (this.pastBidCount()) {
             alert("It is not yet your turn. Play proceeds around the table clockwise.")
         } else {
-            let bid = `${this.props.myPosition}.${e.target.value};`
+            let bid = `${this.props.myPosition}.${e.target.value}%`
             if (this.increment(bid)) {
                 alert("You must Pass or surpass the previous bid.")
             } else {
@@ -120,6 +167,7 @@ class AuctionContainer extends Component {
                     this.setState({bidHistory: d.history})
                 })
                 .then(console.log(this.state.bidHistory))
+                .then(() => this.bidAnalysis())
             }
         }
     }

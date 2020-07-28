@@ -38,8 +38,7 @@ class BidForm extends Component {
     render() {
         return (
             <div>
-                <h3 style={{color:'ivory', position: 'absolute', left:'40%'}}> AUCTION </h3>
-                <br/> <br/> <hr />
+                <br /> 
                 {this.generateForm()}
                 <Button fluid name='Pass' value='Pass' onClick={this.props.handleBid}>Pass</Button> <hr />
             </div>

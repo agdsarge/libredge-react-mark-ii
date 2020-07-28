@@ -53,13 +53,6 @@ class GamesList extends Component {
         })
     }
 
-    // findActiveGame = (myGames, activeGameID) => {
-    //     return myGames.find(
-    //         game => game.id === activeGameID
-    //     )
-    // }
-
-
     render = () => {
         const { myGames } = this.state;
         return (

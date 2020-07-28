@@ -35,7 +35,9 @@ class NavBar extends Component {
                     }
                     <Menu.Menu position="right" onMouseOver={(e) => this.handleMouse(e, true)} onMouseLeave={(e) => this.handleMouse(e, false)}>
                         { this.props.currentUser ?
-                            <Menu.Item name="SIGN OUT" />
+                            <Menu.Item name="SIGN OUT"
+                                onClick={this.handleLogOut}
+                             />
                                 :
                             <div>
                             <NavLink

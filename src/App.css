@@ -12,7 +12,12 @@ div#navBarMenuSemantic {
 div#mainGrid {
     margin-top: 10px;
     height: 90%;
+}
 
+div#auction {
+    margin-top: 25px;
+    margin-left: 25px;
+    margin-right: 25px;
 }
 
 div#focusContainer {

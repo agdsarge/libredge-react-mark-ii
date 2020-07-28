@@ -9,7 +9,7 @@ class Hand extends Component {
     render() {
         return(
             <div>
-                <div className='myHand' > {this.props.hand.map(card =>(
+                <div className={this.props.whoseHand} > {this.props.hand.map(card =>(
                     <div key={card.ord} className="card-container">
                         <div className="playing-card" >
                             <img className="playing-card" src={card.img} alt={card.uni}/>

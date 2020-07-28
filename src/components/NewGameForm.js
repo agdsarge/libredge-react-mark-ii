@@ -4,10 +4,11 @@ import { connect } from 'react-redux'
 
 
 class NewGameForm extends Component {
-    openSeats = () => {
 
+
+    openSeats = () => {
         let {east, south, west} = this.props // east: 17, west: null, south: null
-        let seats = [east, south, west] // [17, null, null ]
+        let seats = [east.id, south.id, west.id] // [17, null, null ]
         let players = this.props.players.filter(p => !seats.includes(p.id))
         // console.log(seats, west)
         console.log("NEW GAME FORM", players)
@@ -15,6 +16,7 @@ class NewGameForm extends Component {
         console.log("UPDATED", updated_players)
         return updated_players
     }
+
     render() {
         let {east, south, west} = this.props
         let opts = this.openSeats()
@@ -24,9 +26,10 @@ class NewGameForm extends Component {
                 <div>
                     <Dropdown
                         onChange={this.props.handleChange}
-
+                        // look at debugger in NewGameContainer
                         placeholder='West'
-                        value={west}
+                        value={west.id}
+                        text={west.name}
                         search
                         selection
                         options={opts}
@@ -35,7 +38,8 @@ class NewGameForm extends Component {
                         onChange={this.props.handleChange}
 
                         placeholder='East'
-                        value={east}
+                        value={east.id}
+                        text={east.name}
                         search
                         selection
                         options={opts}
@@ -45,7 +49,8 @@ class NewGameForm extends Component {
                         onChange={this.props.handleChange}
 
                         placeholder='South'
-                        value={south}
+                        value={south.id}
+                        text={south.name}
                         search
                         selection
                         options={opts}

@@ -10,6 +10,7 @@ import { API_ROOT } from '../constants'
 import Hand from '../components/Hand'
 
 import AuctionContainer from './AuctionContainer'
+import PlayContainer from './PlayContainer'
 
 class GameplayArea extends Component {
     //this.props.game is a game object => { id, memorable_string_name, final_score, deals}
@@ -26,7 +27,6 @@ class GameplayArea extends Component {
         if (!this.props.myPosition) {
             this.determineMyPosition()
         }
-
     }
 
     componentWillUnmount() {
@@ -94,12 +94,14 @@ class GameplayArea extends Component {
                     <div id='auction' >
                         <AuctionContainer deal={this.state.activeDeal} distance={this.state.distanceFromDealer}/>
                     </div >
-                : null}
+                        :
+                    <PlayContainer deal={this.state.activeDeal} />
+                }
 
                 <div id='tricks'> </ div>
 
-                <Hand hand={this.state.myHand} />
-                <h3 className="centeredPosition" > Your position: {this.props.myPosition} </h3>
+                <Hand hand={this.state.myHand} whoseHand="myHand" />
+                <h3 className="centeredPosition" > Your position is {this.props.myPosition} </h3>
             </div>
 
         )

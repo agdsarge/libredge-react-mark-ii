@@ -9,9 +9,10 @@ class NewGameContainer extends Component {
         super(props)
         this.state = {
             allRegisteredPlayers: [],
-            east: null,
-            south: null,
-            west: null,
+            east: {id: null, name: null},
+            south: {id: null, name: null},
+            west: {id: null, name: null},
+
             redirect: false
         }
     }
@@ -28,23 +29,24 @@ class NewGameContainer extends Component {
 
     handleChange = (e, data) => {
         // let's work with this.
-        // take a look at NewGameForm#openSeats 
-        console.log("DROPDOWN", data)
+        // take a look at NewGameForm#openSeats
+        // console.log("DROPDOWN", data)
         let id = data.value
+        let name = data.text
         let position = data.placeholder.toLowerCase()
         // console.log({[position]: id})
-        this.setState({[position]: id})
+        this.setState({[position]: {id: id, name: name}})
     }
 
     handleSubmit = (e) => {
         e.preventDefault()
         let {east, south, west} = this.state
-        if (east === null || south === null || west === null) {
+        if (east.id === null || south.id === null || west.id === null) {
             alert("please provide all players for this game")
         }
         else {
-            let submission = {north: this.props.currentUser.id, east: east, south: south, west: west}
-            console.log(submission)
+            let submission = {north: this.props.currentUser.id, east: east.id, south: south.id, west: west.id}
+            // console.log(submission)
             //create a game. create four Player Games
             fetch(NEW_GAME_URL, {
                 method: 'POST',
@@ -54,9 +56,9 @@ class NewGameContainer extends Component {
             .then(res=> res.json())
             .then(d => alert(`Game sucessfully created. It has the name ${d.memorable_string_name}`))
             .then(this.setState({
-                east: null,
-                south: null,
-                west:null
+                east: {id: null, name: null},
+                south: {id: null, name: null},
+                west: {id: null, name: null}
             }))
             .then(this.setState({redirect: true}))
         }

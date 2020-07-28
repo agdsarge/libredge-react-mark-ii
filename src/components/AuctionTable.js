@@ -6,28 +6,35 @@ class AuctionTable extends Component {
 
 
     componentDidMount() {
-        // console.log("AUCTION TABLE", this.props.history)
-        // console.log(this.props.game.deals.slice(-1)[[0]]['bid_history'])
     }
 
     componentWillUnmount() {
-
     }
 
-    generateTable() {
-        let keyIndex = 0
-        let {firstCol, history} = this.props
+    generateColumnLabels() {
+        let {firstCol} = this.props
         let cols = ['north', 'east', 'south', 'west']
         while (cols[0] !== firstCol) {
             cols.unshift(cols.pop())
         }
+        return (cols.map(direction =>
+            <Table.HeaderCell key={direction}>
+                {direction}
+            </Table.HeaderCell >))
+    }
 
+    fillTableBody() {
+        let keyIndex = 0
+
+        let {firstCol, history} = this.props
         let rows = history.split(firstCol)
         rows.shift()
-        let cells = rows.map(r => r.split(';').filter(e => e !== ''))
-        let tableBody = cells.map( c => {
+        let cells = rows.map(r => r.split('%').filter(e => e !== ''))
+
+        return cells.map( c => {
             keyIndex += 1
-            return(<Table.Row key={keyIndex}>
+            return(
+                <Table.Row key={keyIndex}>
                 {c.map( b => {
                     let title = b.match(/[^.]+$/g)
                     keyIndex += 1
@@ -35,24 +42,20 @@ class AuctionTable extends Component {
                         {title}
                     </Table.Cell>)
                 })
-                }
-            </Table.Row>)
-        })
+            } </Table.Row>)})
+    }
+
+    generateTable() {
 
         return (
             <Table celled textAlign='center'>
                 <Table.Header >
                     <Table.Row>
-                        {cols.map(direction =>
-                            <Table.HeaderCell
-                                key={direction}
-                            >
-                                {direction}
-                            </Table.HeaderCell >)}
+                        {this.generateColumnLabels()}
                     </Table.Row>
                 </Table.Header >
                 <Table.Body >
-                    {tableBody}
+                    {this.fillTableBody()}
                 </Table.Body >
             </Table >
         )
