@@ -36,9 +36,8 @@ class AuctionContainer extends Component {
         return (semicolonCount % 4 !== dist)
     }
 
-
-
     increment = (bid) => {
+        // JFC I should break this up.
         if (this.state.bidHistory === '') {
             return false
         }
@@ -89,11 +88,6 @@ class AuctionContainer extends Component {
         }
     }
 
-    bidAnalysis() {
-        let copy = this.state.bidHistory
-
-    }
-
     handleBid = (e) => {
         if (this.props.distance !== 0 && this.state.bidHistory === '') {
             alert('Dealer will open the auction with a bid or a pass. Please wait.')
@@ -115,7 +109,6 @@ class AuctionContainer extends Component {
                     this.setState({bidHistory: d.history})
                 })
                 .then(console.log(this.state.bidHistory))
-                .then(this.bidAnalysis())
             }
         }
     }
@@ -124,8 +117,7 @@ class AuctionContainer extends Component {
         return (
             <div>
                 <BidForm handleBid={this.handleBid}/>
-                your distance is {this.props.distance}
-                <AuctionTable />
+                <AuctionTable history={this.state.bidHistory} firstCol={this.props.deal.dealer}/>
             </div>
         )
     }
