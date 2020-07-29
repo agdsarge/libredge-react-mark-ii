@@ -35,10 +35,10 @@ div.trickSpace {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border-style: solid;
-    border-color: cyan;
-    height: 400px;
-    width: 400px;
+    /* border-style: solid;
+    border-color: cyan; */
+    height: 300px;
+    width: 500px;
 
 }
 

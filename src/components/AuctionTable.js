@@ -38,9 +38,7 @@ class AuctionTable extends Component {
                 {c.map( b => {
                     let title = b.match(/[^.]+$/g)
                     keyIndex += 1
-                    return (<Table.Cell key={keyIndex}>
-                        {title}
-                    </Table.Cell>)
+                    return (<Table.Cell key={keyIndex}>{title}</Table.Cell>)
                 })
             } </Table.Row>)})
     }

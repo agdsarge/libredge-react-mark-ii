@@ -25,6 +25,9 @@ const reducer = (state=initialState, action) => {
             return {...state, myPosition: action.payload}
         case 'SET_BID_PHASE':
             return {...state, currentBidPhase: action.payload}
+        case 'INCREMENT_Score':
+            let newScore = state.currentDealScore + action.payload
+            return {...state, currentDealScore: newScore}
         default:
             return state
     }

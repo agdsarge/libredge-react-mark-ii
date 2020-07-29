@@ -25,7 +25,6 @@ class SideContainer extends Component{
 
 
     componentSelector = () => {
-        console.log('CS', this.props.currentDealScore.toFixed(2))
         let dict = {
             'C': 'https://upload.wikimedia.org/wikipedia/commons/8/8a/SuitClubs.svg',
             'D': 'https://upload.wikimedia.org/wikipedia/commons/d/db/SuitDiamonds.svg',
@@ -35,6 +34,7 @@ class SideContainer extends Component{
         }
         let [nsScore, ewScore ] = this.props.currentDealScore.toFixed(2).split('.')
         ewScore = +ewScore
+        
         if (this.props.rp.match.path === '/lobby') {
             return <NavLink exact to='/new_game' ><Button color='blue' style={{marginTop:'5px'}}> NEW GAME </Button> </NavLink>
         } else if (this.props.rp.match.path.startsWith('/game')) {

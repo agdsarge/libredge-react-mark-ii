@@ -11,7 +11,6 @@ class AuctionContainer extends Component {
         this.state = {
             bidHistory: '',
             intervalID: null
-
         }
     }
 
