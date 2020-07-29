@@ -8,7 +8,8 @@ class PlayContainer extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            dummyHand: []
+            dummyHand: [],
+            currentTrick: 1,
 
         }
     }
@@ -53,7 +54,7 @@ class PlayContainer extends Component {
                 return this.state.dummyHand.map( card => {
                     return(
                         <div className='card-container' key={card.ord} >
-                            <Button small fluid > {card.uni} </ Button>
+                            <Button fluid > {card.uni} </ Button>
                         </div>
 
                 )})
@@ -63,7 +64,7 @@ class PlayContainer extends Component {
                     <Button.Group floated='right'>
                         {this.state.dummyHand.map( card => {
                             return(
-                                <Button key={card.ord} onClick={(e) => this.props.handlePlay(e, card)} > {card.uni} </ Button>
+                                <Button key={card.ord} onClick={(e) => this.props.handlePlay(e, card, this.props.deal.dummy)} > {card.uni} </ Button>
                         )})}
                     </Button.Group>)
 
@@ -76,6 +77,7 @@ class PlayContainer extends Component {
         }
     }
 
+
     render() {
         let ori = this.dummyOrientation()
 
@@ -85,7 +87,8 @@ class PlayContainer extends Component {
                 <div className={ori}>
                     {this.renderDummyHand(ori)}
                 </div>
-                <div className="trickSpace"> trick space </div>
+                <div className="trickSpace"> </div>
+
             </div>
         )
     }

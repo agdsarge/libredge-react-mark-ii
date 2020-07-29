@@ -3,7 +3,7 @@ import { Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
-// import { DEAL_UPDATE_URL } from '../constants'
+import { API_ROOT } from '../constants'
 // import ChatContainer from './ChatContainer'
 
 class SideContainer extends Component{
@@ -18,8 +18,14 @@ class SideContainer extends Component{
     //     console.log(this.props)
     // }
     //
+    handleEndGame = (e) => {
+        let gameID = this.props.currentGame.id
+        fetch(`${API_ROOT}/games/finish/${gameID}`)
+    }
+
 
     componentSelector = () => {
+        console.log('CS', this.props.currentDealScore.toFixed(2))
         let dict = {
             'C': 'https://upload.wikimedia.org/wikipedia/commons/8/8a/SuitClubs.svg',
             'D': 'https://upload.wikimedia.org/wikipedia/commons/d/db/SuitDiamonds.svg',
@@ -27,7 +33,8 @@ class SideContainer extends Component{
             'S': 'https://upload.wikimedia.org/wikipedia/commons/5/5b/SuitSpades.svg',
             'NT': 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Status_iucn_NT_icon.svg/240px-Status_iucn_NT_icon.svg.png'
         }
-
+        let [nsScore, ewScore ] = this.props.currentDealScore.toFixed(2).split('.')
+        ewScore = +ewScore
         if (this.props.rp.match.path === '/lobby') {
             return <NavLink exact to='/new_game' ><Button color='blue' style={{marginTop:'5px'}}> NEW GAME </Button> </NavLink>
         } else if (this.props.rp.match.path.startsWith('/game')) {
@@ -41,7 +48,22 @@ class SideContainer extends Component{
                             alt={this.props.currentContract.trumpSuit}
                             style={{maxWidth: '80px', display: 'block', marginLeft: 'auto', marginRight: 'auto'}}
                         />
+                        < br/> < br/>
+                        <div>
+                            <h2>NS: {nsScore}</h2>
+                            <h2>EW: {ewScore}</h2>
+                        </div>
+                        < br/> < br/>
+                        <NavLink exact to='/lobby' >
+                            <Button color='blue' onClick={this.handleEndGame} > END GAME </Button >
+                        </NavLink >
                     </div>
+                )
+            } else {
+                return (
+                    <NavLink exact to='/lobby' >
+                        <Button color='blue' onClick={this.handleEndGame} > END GAME </Button >
+                    </NavLink >
                 )
             }
 
@@ -70,7 +92,8 @@ const mapStateToProps = (state) => {
         myPosition: state.myPosition,
         currentGame: state.currentGame,
         currentBidPhase: state.currentBidPhase,
-        currentContract: state.currentContract
+        currentContract: state.currentContract,
+        currentDealScore: state.currentDealScore
     }
 }
 

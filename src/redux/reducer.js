@@ -7,7 +7,8 @@ const initialState = {
         contract: '', // '1.S', '5.NT'
         trumpSuit: '' // 'S', 'NT'
     },
-    myPosition: null
+    myPosition: null,
+    currentDealScore: 0.00
 }
 
 const reducer = (state=initialState, action) => {

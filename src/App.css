@@ -20,13 +20,25 @@ div.rightDummy {
     position: absolute;
     right: 5px;
     height: inherit;
-
 }
 
 div.centerDummy {
     position: absolute;
     top: 5px;
     width: 95%;
+
+}
+div.trickSpace {
+
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-style: solid;
+    border-color: cyan;
+    height: 400px;
+    width: 400px;
 
 }
 

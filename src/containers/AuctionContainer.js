@@ -11,6 +11,7 @@ class AuctionContainer extends Component {
         this.state = {
             bidHistory: '',
             intervalID: null
+
         }
     }
 
@@ -52,7 +53,7 @@ class AuctionContainer extends Component {
     }
 
     bidAnalysis = () => {
-        console.log("BID ANALYSIS")
+        // console.log("BID ANALYSIS")
         let copyHistory = this.state.bidHistory
         if (this.tally(copyHistory) === 4 && this.tally(copyHistory, 'P') === 4) {
             this.endAuction(false)

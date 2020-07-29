@@ -21,6 +21,10 @@ class GameplayArea extends Component {
             myHand: [],
             distanceFromDealer: null,
             distanceFromDummy: null,
+            distanceFromFirstPlayer: null,
+            lastTrick: '',
+            playCandidate: '',
+            trickCount: 1
         }
     }
 
@@ -83,9 +87,19 @@ class GameplayArea extends Component {
                 this.setState({distanceFromDealer: seats.indexOf(player)})
             } else {
                 this.setState({distanceFromDummy: seats.indexOf(player)})
-                console.log("WTF???", this.state.distanceFromDummy)
+                console.log("UGHHHHHH", this.state.distanceFromDummy)
             }
         }
+    }
+
+    tally = (str, delim='%') => {
+        let count = 0
+        for (let char of str) {
+            if (char === delim) {
+                count += 1
+            }
+        }
+        return count
     }
 
 
@@ -93,9 +107,30 @@ class GameplayArea extends Component {
 
     }
 
-    handlePlay = (e, card) => {
-        console.log(card.short)
+    determineDistanceFromFirstPlayer = () => {
+        console.log(this.state.distanceFromDummy)
     }
+
+    handlePlay = (e, card, position) => {
+        if (!this.state.distanceFromFirstPlayer) {
+            this.determineDistanceFromFirstPlayer()
+        }
+        // console.log(card.short)
+        let play = `${position}.${card.short}%`
+        console.log(play)
+        // remove card from hand
+        // render card in trick
+        // analyze trick
+        // assign points
+
+    }
+
+
+
+
+
+
+
 
     whichComponent = () => {
         if (this.props.currentBidPhase === true) {
