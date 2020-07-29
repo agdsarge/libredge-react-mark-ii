@@ -1,47 +1,91 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { API_ROOT } from '../constants'
+import { Button } from 'semantic-ui-react'
 
 class PlayContainer extends Component {
-
+    // props: currentGame, deal (activeDeal), myPosition,
     constructor(props) {
         super(props)
         this.state = {
-            dummyUIposition: null
+            dummyHand: []
+
         }
     }
 
     componentDidMount() {
         console.log(this.props)
-        this.relativePositionOfDummy()
-    }
-
-    relativePositionOfDummy = () => {
-        if (this.props.myPosition !== this.props.deal.dummy) {
-            console.log('relativePositionOfDummy')
-            // let positions = {1: 'right', 2: 'up', 3: 'left'}
-            // // the dummy's position is relative to the player. we should do this with an ary rotation
-            //
-            // let seats = ['north', 'east', 'south', 'west']
-            // while (seats[0] != this.props.myPosition) {
-            //     seats.unshift(seats.pop())
-            // }
-            //
-            // let counter = 0
-            // while (seats[0] != this.props.deal.dummy) {
-            //     seats.unshift(seats.pop())
-            //     counter += 1
+        let contract = this.props.deal['contract_content']
+        this.props.dispatch({type: "SET_CONTRACT", payload: contract})
+        // this.getDealInfo()
+        if (this.props.deal.dummy !== this.props.myPosition) {
+            this.getDummyHand()
         }
-            // this.setState({dummyUIposition: positions[counter]})
     }
 
+    getDummyHand = () => {
+        fetch(`${API_ROOT}/hand/${this.props.deal.id}/${this.props.dummy}`)
+            .then(res => res.json())
+            .then( hand => this.setState({dummyHand: hand}))
+    }
+
+    dummyOrientation = () => {
+        // console.log("DUMMY FUNCTION", this.props.deal.dummy, this.props.myPosition)
+        if (this.props.deal.dummy === this.props.myPosition) {
+            return (<div> This round, I am the dummy. </div>)
+        } else {
+            let seats = ['north', 'east', 'south', 'west']
+            while (this.props.myPosition !== seats[0]) {
+                let x = seats.pop()
+                seats.unshift(x)
+            }
+            let ind = seats.indexOf(this.props.deal.dummy)
+            let zed = ['left', 'center', 'right'][ind - 1]
+
+            return `${zed}Dummy`
+        }
+    }
+
+    renderDummyHand = (ori) => {
+
+        if (this.props.deal.dummy !== this.props.myPosition) {
+            if (ori !== 'centerDummy') {
+                return this.state.dummyHand.map( card => {
+                    return(
+                        <div className='card-container' key={card.ord} >
+                            <Button small fluid > {card.uni} </ Button>
+                        </div>
+
+                )})
+            } else {
+
+                return (
+                    <Button.Group floated='right'>
+                        {this.state.dummyHand.map( card => {
+                            return(
+                                <Button key={card.ord} onClick={(e) => this.props.handlePlay(e, card)} > {card.uni} </ Button>
+                        )})}
+                    </Button.Group>)
+
+            }
+        // <div className='card-container' key={card.ord}>
+        //     <div className="dummy-side-card" style={{top: `${offset}`}}>
+        //         <img className="dummy-side-card" src={card.img} alt={card.uni}/>
+        //     </div >
+        // </div>
+        }
+    }
 
     render() {
-        let rdod = this.state.dummyUIposition
+        let ori = this.dummyOrientation()
+
         return(
             <div id='playOfTheHand'>
-                <p> hello {this.props.deal.dummy}</p>
-                <div>{rdod ? <div className={rdod}> {rdod} </div> : <p> I AM THE DUMMY! </p>}</div>
-                <p>HOW DID I DO </p>
+
+                <div className={ori}>
+                    {this.renderDummyHand(ori)}
+                </div>
+                <div className="trickSpace"> trick space </div>
             </div>
         )
     }
@@ -52,7 +96,8 @@ class PlayContainer extends Component {
 const mapStateToProps = (state) => {
     return {
         currentGame: state.currentGame,
-        myPosition: state.myPosition
+        myPosition: state.myPosition,
+        currentContract: state.currentContract
     }
 }
 

@@ -23,7 +23,7 @@ class AuctionContainer extends Component {
     }
 
     componentWillUnmount() {
-        console.log("UNMOUNT!!!", this.state.intervalID)
+        // console.log("UNMOUNT!!!", this.state.intervalID)
         clearInterval(this.state.intervalID)
     }
 

@@ -20,6 +20,7 @@ class GameplayArea extends Component {
             activeDeal: {},
             myHand: [],
             distanceFromDealer: null,
+            distanceFromDummy: null,
         }
     }
 
@@ -65,43 +66,61 @@ class GameplayArea extends Component {
         fetch(`${API_ROOT}/hand/${actDeal.id}/${position}`)
         .then(res => res.json())
         .then( hand => this.setState({myHand: hand}))
+        .then(() => this.calculateDistanceFrom(actDeal.dealer, position, actDeal['bid_phase']))
 
-        this.calculateDistanceFromDealer(actDeal.dealer, position)
     }
 
-    calculateDistanceFromDealer = (dealer, player) => {
-        if (dealer === player) {this.setState({distanceFromDealer: 0})}
-        let seats = ["north", "east", "south", "west"]
-        while (dealer !== seats[0]) {
-            seats = seats.unshift(seats.pop())
+    calculateDistanceFrom = (target, player, dealer) => {
+
+        if (target === player) {
+            this.setState({distanceFromDealer: 0})
+        } else {
+            let seats = ["north", "east", "south", "west"]
+            while (target !== seats[0]) {
+                seats = seats.unshift(seats.pop())
+            }
+            if (dealer) {
+                this.setState({distanceFromDealer: seats.indexOf(player)})
+            } else {
+                this.setState({distanceFromDummy: seats.indexOf(player)})
+                console.log("WTF???", this.state.distanceFromDummy)
+            }
         }
-        this.setState({distanceFromDealer: seats.indexOf(player)})
     }
 
 
     handleNewDeal = (e) => {
 
-
     }
 
+    handlePlay = (e, card) => {
+        console.log(card.short)
+    }
+
+    whichComponent = () => {
+        if (this.props.currentBidPhase === true) {
+            return (
+                <div id='auction' >
+                    <AuctionContainer deal={this.state.activeDeal} distance={this.state.distanceFromDealer}/>
+                </div >)
+        } else if (this.props.currentBidPhase === false) {
+            return (
+                <div id='play'>
+                    <PlayContainer deal={this.state.activeDeal} handlePlay={this.handlePlay} />
+                </div>)
+        } else {
+            return null
+        }
+    }
 
 
     render() {
         return(
 
             <div id="cardTable">
-                {this.props.currentBidPhase ?
-                    <div id='auction' >
-                        <AuctionContainer deal={this.state.activeDeal} distance={this.state.distanceFromDealer}/>
-                    </div >
-                        :
-                    <PlayContainer deal={this.state.activeDeal} />
-                }
-
-                <div id='tricks'> </ div>
-
-                <Hand hand={this.state.myHand} whoseHand="myHand" />
-                <h3 className="centeredPosition" > Your position is {this.props.myPosition} </h3>
+                {this.whichComponent()}
+                <Hand hand={this.state.myHand} whoseHand="myHand" handlePlay={this.handlePlay} />
+                <h3 className="centeredPosition" > My position is {this.props.myPosition} </h3>
             </div>
 
         )

@@ -9,6 +9,27 @@ div#navBarMenuSemantic {
     background-color: slategrey;
 }
 
+div.leftDummy {
+    position: absolute;
+    left: 5px;
+    height: inherit;
+
+}
+
+div.rightDummy {
+    position: absolute;
+    right: 5px;
+    height: inherit;
+
+}
+
+div.centerDummy {
+    position: absolute;
+    top: 5px;
+    width: 95%;
+
+}
+
 div#mainGrid {
     margin-top: 10px;
     height: 90%;
@@ -69,6 +90,13 @@ div#cardTable {
 .playing-card {
     width: 100px;
     height: 150px;
+}
+
+.dummy-side-card {
+    width: 100px;
+    height: 150px;
+    position: absolute;
+    right: 10px;
 }
 
 .centeredPosition {

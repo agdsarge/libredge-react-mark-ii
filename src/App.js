@@ -19,7 +19,6 @@ class App extends Component {
 
     componentDidMount() {   // Auth for jwt in local storage
         if (localStorage.getItem('jwt-libredge')) {
-            console.log("HELLO FROM APP JWT REQUEST")
             fetch(JWT_URL, {
                 method: "GET",
                 headers: {Authentication: localStorage.getItem('jwt-libredge')}
@@ -32,7 +31,6 @@ class App extends Component {
     render() {
         return(
             <div id='supra'>
-
                 <Router>
                     <NavBar />
                     <Switch>

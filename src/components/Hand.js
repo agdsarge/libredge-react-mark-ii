@@ -11,7 +11,7 @@ class Hand extends Component {
             <div>
                 <div className={this.props.whoseHand} > {this.props.hand.map(card =>(
                     <div key={card.ord} className="card-container">
-                        <div className="playing-card" >
+                        <div className="playing-card" onClick={(e) => this.props.handlePlay(e, card)}>
                             <img className="playing-card" src={card.img} alt={card.uni}/>
                         </div>
                     </div>))}
