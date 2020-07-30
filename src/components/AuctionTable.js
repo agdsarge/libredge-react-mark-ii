@@ -36,9 +36,12 @@ class AuctionTable extends Component {
             return(
                 <Table.Row key={keyIndex}>
                 {c.map( b => {
-                    let title = b.match(/[^.]+$/g)
-                    keyIndex += 1
-                    return (<Table.Cell key={keyIndex}>{title}</Table.Cell>)
+                    if (b) {
+                        let title = b.match(/[^.]+$/g)
+                        keyIndex += 1
+                        return (<Table.Cell key={keyIndex}>{title}</Table.Cell>)
+                    } else { return <Table.Cell />}
+
                 })
             } </Table.Row>)})
     }

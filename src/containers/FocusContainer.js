@@ -10,7 +10,7 @@ class FocusContainer extends Component {
 
     render() {
         return (
-            <div id="focusContainer">
+            <div id="focusContainer" >
                 {this.props.component}
             </div>
         )

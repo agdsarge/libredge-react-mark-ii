@@ -9,9 +9,10 @@ class NewGameContainer extends Component {
         super(props)
         this.state = {
             allRegisteredPlayers: [],
-            east: {id: null, name: null},
-            south: {id: null, name: null},
-            west: {id: null, name: null},
+            availPlayers: [],
+            east: null,
+            south: null,
+            west: null,
 
             redirect: false
         }
@@ -22,26 +23,20 @@ class NewGameContainer extends Component {
         .then(res => res.json())
         .then(d => {
             // console.log(d)
-            this.setState({allRegisteredPlayers: d})
+            this.setState({allRegisteredPlayers: d, availPlayers: d})
         })
         // .then(console.log(this.state))
     }
 
-    handleChange = (e, data) => {
-        // let's work with this.
-        // take a look at NewGameForm#openSeats
-        // console.log("DROPDOWN", data)
-        let id = data.value
-        let name = data.text
-        let position = data.placeholder.toLowerCase()
-        // console.log({[position]: id})
-        this.setState({[position]: {id: id, name: name}})
+    handleChange = (e) => {
+        console.log(e.target.value, e.target.name)
+        this.setState({[e.target.name]: e.target.value})
     }
 
     handleSubmit = (e) => {
         e.preventDefault()
         let {east, south, west} = this.state
-        if (east.id === null || south.id === null || west.id === null) {
+        if (east === null || south === null || west === null) {
             alert("please provide all players for this game")
         }
         else {
@@ -56,20 +51,21 @@ class NewGameContainer extends Component {
             .then(res=> res.json())
             .then(d => alert(`Game sucessfully created. It has the name ${d.memorable_string_name}`))
             .then(this.setState({
-                east: {id: null, name: null},
-                south: {id: null, name: null},
-                west: {id: null, name: null}
+                east: null,
+                south: null,
+                west: null
             }))
             .then(this.setState({redirect: true}))
         }
     }
 
     render() {
-        let {allRegisteredPlayers, east, south, west, redirect} = this.state
+        let {availPlayers, east, south, west, redirect} = this.state
+        // let plobs = availPlayers.map( p => { return {value: p.id, text: p.username}})
         return(
             <div>
                 <NewGameForm
-                    players={allRegisteredPlayers}
+                    players={availPlayers}
                     east={east}
                     south={south}
                     west={west}

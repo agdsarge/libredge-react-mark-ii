@@ -9,6 +9,11 @@ div#navBarMenuSemantic {
     background-color: slategrey;
 }
 
+div.newGameFormContainer {
+    padding: 20px;
+    color: ivory;
+}
+
 div.leftDummy {
     position: absolute;
     left: 5px;
@@ -75,10 +80,60 @@ div#sideContainer {
 
 div#cardTable {
     background-image: url('https://img.fabricgateway.com/66/66b2b5ad5874d6f927380a7c0ed63642.jpeg');
+
     height: 100%;
 }
 
+div.custom-select {
+    /* margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+    background: linear-gradient( rgba(112, 128, 144, 0.35), rgba(112, 128, 144, 0.35) ), url('https://upload.wikimedia.org/wikipedia/commons/1/11/Anglo-American_card_suits.svg');
+    /* background-image: url('https://upload.wikimedia.org/wikipedia/commons/1/11/Anglo-American_card_suits.svg'); */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: auto;
+    width: 50%;
+    height:500px;
+    width: inherit;
 
+}
+
+#submit-select {
+    position: absolute;
+    width: 100px;
+    top: 300px;
+    left: 0;
+    right: 0;
+    margin: auto
+}
+
+div.east-select{
+    position: absolute;
+    right: 20px;
+    width: 200px;
+    top: 250px;
+
+}
+div.west-select{
+    position: absolute;
+    left: 20px;
+    width: 200px;
+    top: 250px
+
+}
+div.south-select{
+    position: absolute;
+    width: 200px;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    margin: auto
+
+}
 
 .myHand {
     position: absolute;
@@ -119,10 +174,7 @@ div#cardTable {
 }
 
 .splashBackground {
-    /* height: 100%;
-    background-image: url('https://upload.wikimedia.org/wikipedia/commons/1/1f/George_Goodwin_Kilburne_A_good_hand.jpg');
-    background-repeat: no-repeat;
-    background-size: cover; */
+
     color: ivory;
     padding-left: 100px;
     padding-top: 100px;

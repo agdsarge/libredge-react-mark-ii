@@ -163,10 +163,10 @@ class AuctionContainer extends Component {
                 })
                 .then(res => res.json())
                 .then(d => {
-                    console.log(d)
+                    // console.log(d)
                     this.setState({bidHistory: d.history})
                 })
-                .then(console.log(this.state.bidHistory))
+                // .then(console.log(this.state.bidHistory))
                 .then(() => this.bidAnalysis())
             }
         }
