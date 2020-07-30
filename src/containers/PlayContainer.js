@@ -15,7 +15,7 @@ class PlayContainer extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props)
+        console.log("EXAMINE ME!", this.props)
         if (this.props.deal['contract_content']) {
             let contract = this.props.deal['contract_content']
             this.props.dispatch({type: "SET_CONTRACT", payload: contract})

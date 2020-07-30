@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import { Button } from 'semantic-ui-react'
@@ -57,7 +57,11 @@ class GamesList extends Component {
         const { myGames } = this.state;
         return (
             <div className="lobbyList">
-                <h2 style={{color:'ivory'}}> Open Games </h2>
+                <h2 style={{color:'ivory', float: 'left'}}> Open Games </h2>
+                <NavLink exact to='/new_game' style={{float:'right'}} ><Button color='blue' style={{marginTop:'5px'}}> NEW GAME </Button> </NavLink>
+
+                <br />
+                <br />
                 < hr />
                 <div className="myGamesList">
                     {this.mapGames(myGames, this.handleClick)}

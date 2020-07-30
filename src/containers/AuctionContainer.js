@@ -23,7 +23,6 @@ class AuctionContainer extends Component {
     }
 
     componentWillUnmount() {
-        // console.log("UNMOUNT!!!", this.state.intervalID)
         clearInterval(this.state.intervalID)
     }
 
@@ -45,10 +44,7 @@ class AuctionContainer extends Component {
                 headers: HEADERS,
                 body: JSON.stringify({"bid_phase": "ended"})
             })
-        } else {
-
         }
-
     }
 
     bidAnalysis = () => {

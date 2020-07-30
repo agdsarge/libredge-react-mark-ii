@@ -70,7 +70,7 @@ class GameplayArea extends Component {
             fetch(`${API_ROOT}/hand/${actDeal.id}/${position}`)
             .then(res => res.json())
             .then( hand => this.setState({myHand: hand}))
-            .then(() => this.calculateDistanceFrom(actDeal.dealer, position, actDeal['bid_phase']))    
+            .then(() => this.calculateDistanceFrom(actDeal.dealer, position, actDeal['bid_phase']))
         }
 
 
@@ -141,7 +141,6 @@ class GameplayArea extends Component {
                 }
             }
         }
-
     }
 
     handlePlay = (e, card, position) => {
@@ -177,12 +176,16 @@ class GameplayArea extends Component {
         })
     }
 
+    endOfAuctionUpdateDeal = () => {
+
+    }
+
 
     whichComponent = () => {
         if (this.props.currentBidPhase === true) {
             return (
                 <div id='auction' >
-                    <AuctionContainer deal={this.state.activeDeal} distance={this.state.distanceFromDealer}/>
+                    <AuctionContainer deal={this.state.activeDeal} distance={this.state.distanceFromDealer} end={this.endOfAuctionUpdateDeal}/>
                 </div >)
         } else if (this.props.currentBidPhase === false) {
             return (
@@ -196,10 +199,15 @@ class GameplayArea extends Component {
 
 
     render() {
+        let {currentBidPhase} = this.props
         return(
 
             <div id="cardTable">
-                {this.whichComponent()}
+                {currentBidPhase ?
+                    <AuctionContainer deal={this.state.activeDeal} distance={this.state.distanceFromDealer} end={this.endOfAuctionUpdateDeal}/>
+                        :
+                    <PlayContainer deal={this.state.activeDeal} handlePlay={this.handlePlay} trickCount={this.state.trickCount} />
+                }
                 <Hand hand={this.state.myHand} whoseHand="myHand" handlePlay={this.handlePlay} />
                 <h3 className="centeredPosition" > My position is {this.props.myPosition} </h3>
             </div>

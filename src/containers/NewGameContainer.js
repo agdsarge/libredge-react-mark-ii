@@ -40,7 +40,7 @@ class NewGameContainer extends Component {
             alert("please provide all players for this game")
         }
         else {
-            let submission = {north: this.props.currentUser.id, east: east.id, south: south.id, west: west.id}
+            let submission = {north: this.props.currentUser.id, east: east, south: south, west: west}
             // console.log(submission)
             //create a game. create four Player Games
             fetch(NEW_GAME_URL, {

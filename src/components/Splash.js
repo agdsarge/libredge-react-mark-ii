@@ -19,9 +19,10 @@ class Splash extends Component {
                             :
                         <h2 style={{width: '480px'}}> Please <NavLink to='/login' exact style={{color:'lightGreen'}} ><u>sign in.</u></NavLink> If you are new, please <NavLink to='/register' exact style={{color:'lightGreen'}} > <u>register</u></NavLink>.</h2>
                     }
-
                 </div>
+                <div style={{position:'absolute', bottom: '2px', right: '2px'}}>George Goodwin Kilburne, <em>A Good Hand</em> 1924. Watercolor.</div>
             </div>
+
         )
     }
 }

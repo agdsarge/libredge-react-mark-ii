@@ -34,10 +34,8 @@ class SideContainer extends Component{
         }
         let [nsScore, ewScore ] = this.props.currentDealScore.toFixed(2).split('.')
         ewScore = +ewScore
-        
-        if (this.props.rp.match.path === '/lobby') {
-            return <NavLink exact to='/new_game' ><Button color='blue' style={{marginTop:'5px'}}> NEW GAME </Button> </NavLink>
-        } else if (this.props.rp.match.path.startsWith('/game')) {
+
+        if (this.props.rp.match.path.startsWith('/game')) {
             if (this.props.currentBidPhase === false) {
                 return (
                     <div>

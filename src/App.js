@@ -63,6 +63,7 @@ class App extends Component {
                                 <Redirect to='/login' />}
                         />
                         <Route exact path='/home' render={(rp) => <Splash {...rp} />}/>
+                        
                         <Route path="*" render={(rp) => <Redirect to='/home' />}/>
 
                     </Switch>

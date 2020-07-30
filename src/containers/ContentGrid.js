@@ -11,6 +11,7 @@ class ContentGrid extends Component {
     }
 
     render() {
+        let {match} = this.props
         return (
             <Grid id="mainGrid">
                 <Grid.Column width={2} >
@@ -20,7 +21,7 @@ class ContentGrid extends Component {
                     <FocusContainer component={this.props.focusComponent}/>
                 </Grid.Column>
                 <Grid.Column width={4} >
-                    {(this.props.match.path === "/login" || this.props.match.path === '/register') ?
+                    {(match.path === "/login" || match.path === '/register' || match.path === '/lobby') ?
                         null
                             :
                         <SideContainer rp={this.props} component={null}/>}
