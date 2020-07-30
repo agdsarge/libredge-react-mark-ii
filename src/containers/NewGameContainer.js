@@ -8,12 +8,10 @@ class NewGameContainer extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            allRegisteredPlayers: [],
-            availPlayers: [],
+            players: [],
             east: null,
             south: null,
             west: null,
-
             redirect: false
         }
     }
@@ -23,7 +21,7 @@ class NewGameContainer extends Component {
         .then(res => res.json())
         .then(d => {
             // console.log(d)
-            this.setState({allRegisteredPlayers: d, availPlayers: d})
+            this.setState({players: d})
         })
         // .then(console.log(this.state))
     }
@@ -60,12 +58,11 @@ class NewGameContainer extends Component {
     }
 
     render() {
-        let {availPlayers, east, south, west, redirect} = this.state
-        // let plobs = availPlayers.map( p => { return {value: p.id, text: p.username}})
+        let {players, east, south, west, redirect} = this.state
         return(
             <div>
                 <NewGameForm
-                    players={availPlayers}
+                    players={players}
                     east={east}
                     south={south}
                     west={west}

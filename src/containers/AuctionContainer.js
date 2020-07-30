@@ -37,14 +37,18 @@ class AuctionContainer extends Component {
     }
 
     endAuction = (bool) => {
-        bool ? alert('proceed to play of the hand') : alert("no possible plays. new deal.")
         if (bool) {
             fetch(`${DEAL_UPDATE_URL}/${this.props.deal.id}`, {
                 method: 'PUT',
                 headers: HEADERS,
                 body: JSON.stringify({"bid_phase": "ended"})
             })
-        }
+            .then(res => res.json())
+            .then(d => {
+                this.props.end(d.contract_content, d.dummy)
+            })
+        } //else new deal
+        bool ? alert('proceed to play of the hand') : alert("no possible plays. new deal.")
     }
 
     bidAnalysis = () => {
@@ -77,7 +81,6 @@ class AuctionContainer extends Component {
                 .then(updated_game => {
                     this.props.dispatch({type: "SET_BID_PHASE", payload: false})
                     this.props.dispatch({type: "SET_GAME", payload: updated_game})
-
                 })
             }
         })

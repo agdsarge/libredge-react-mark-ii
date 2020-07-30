@@ -109,10 +109,6 @@ class GameplayArea extends Component {
 
     }
 
-    determineDistanceFromFirstPlayer = () => {
-        console.log(this.state.distanceFromDummy)
-    }
-
     newTrick = (trickString) => {
         let trStrArr = trickString.split('%')
         for (let el of trStrArr) {
@@ -144,9 +140,7 @@ class GameplayArea extends Component {
     }
 
     handlePlay = (e, card, position) => {
-        if (!this.state.distanceFromFirstPlayer) {
-            this.determineDistanceFromFirstPlayer()
-        }
+
         // console.log(card.short)
         let play = `${position}.${card.short}%`
         console.log(play)
@@ -157,6 +151,7 @@ class GameplayArea extends Component {
         let newHand = this.state.myHand.filter(c => c !== card)
         this.setState({myHand: newHand})
         // this.newTrick(card, position)
+
         let trickTracker = `trick${this.state.trickCount}`
         let body = {[trickTracker]: play}
         console.log("TRICK BODY", body)
@@ -176,21 +171,41 @@ class GameplayArea extends Component {
         })
     }
 
-    endOfAuctionUpdateDeal = () => {
+    endOfAuctionUpdateDeal = (cc, dum) => {
+        let newActiveDeal = {...this.state.activeDeal}
+        newActiveDeal['contract_content'] = cc
+        newActiveDeal.dummy = dum
+        this.setState({activeDeal: newActiveDeal})
+    }
 
+    incrementTrickCount = () => {
+        let count = this.state.trickCount
+        count += 1
+        this.setState({trickCount: count})
     }
 
 
     whichComponent = () => {
-        if (this.props.currentBidPhase === true) {
+        let {currentBidPhase} = this.props
+        let {activeDeal, distanceFromDealer, trickCount} = this.state
+        if (currentBidPhase === true) {
             return (
                 <div id='auction' >
-                    <AuctionContainer deal={this.state.activeDeal} distance={this.state.distanceFromDealer} end={this.endOfAuctionUpdateDeal}/>
+                    <AuctionContainer
+                        deal={activeDeal}
+                        distance={distanceFromDealer}
+                        end={this.endOfAuctionUpdateDeal}
+                    />
                 </div >)
-        } else if (this.props.currentBidPhase === false) {
+        } else if (currentBidPhase === false) {
             return (
                 <div id='play'>
-                    <PlayContainer deal={this.state.activeDeal} handlePlay={this.handlePlay} trickCount={this.state.trickCount} />
+                    <PlayContainer
+                        deal={activeDeal}
+                        handlePlay={this.handlePlay}
+                        trickCount={trickCount}
+                        incrementTrickCount={this.incrementTrickCount}
+                    />
                 </div>)
         } else {
             return null
@@ -198,20 +213,15 @@ class GameplayArea extends Component {
     }
 
 
-    render() {
-        let {currentBidPhase} = this.props
-        return(
 
+    render() {
+
+        return(
             <div id="cardTable">
-                {currentBidPhase ?
-                    <AuctionContainer deal={this.state.activeDeal} distance={this.state.distanceFromDealer} end={this.endOfAuctionUpdateDeal}/>
-                        :
-                    <PlayContainer deal={this.state.activeDeal} handlePlay={this.handlePlay} trickCount={this.state.trickCount} />
-                }
+                {this.whichComponent()}
                 <Hand hand={this.state.myHand} whoseHand="myHand" handlePlay={this.handlePlay} />
                 <h3 className="centeredPosition" > My position is {this.props.myPosition} </h3>
             </div>
-
         )
     }
 }
@@ -227,5 +237,3 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(GameplayArea)
-
-// helpers

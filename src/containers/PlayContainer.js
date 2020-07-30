@@ -10,12 +10,13 @@ class PlayContainer extends Component {
         this.state = {
             dummyHand: [],
             currentTrick: [null, null, null, null],
-            intervalID: null
+            intervalID: null,
         }
     }
 
     componentDidMount() {
         console.log("EXAMINE ME!", this.props)
+        // setTimeout(() => console.log('will this work?'), 2000)
         if (this.props.deal['contract_content']) {
             let contract = this.props.deal['contract_content']
             this.props.dispatch({type: "SET_CONTRACT", payload: contract})
@@ -37,21 +38,24 @@ class PlayContainer extends Component {
 
     getTrickData = () => {
         let url = `${API_ROOT}/deals/${this.props.deal.id}/play/${this.props.trickCount}`
-        console.log("HERE NOW!!!", this.props.deal.id, this.props.trickCount, url)
+        // console.log("HERE NOW!!!", this.props.deal.id, this.props.trickCount, url)
 
         fetch(url)
         .then(res => res.json())
         .then(d => {
-            console.log("HERE AGAIN!", d)
-            if (d.trickString) {
-                this.newTrick(d.trickString)
+            // console.log("HERE AGAIN!", d)
+            if (d.finished === true) {
+                this.setState({currentTrick: [null, null, null, null]})
+                this.props.incrementTrickCount()
             }
-
+            if (d.trickString) {
+                this.newTrickArray(d.trickString)
+            }
         })
     }
 
-    newTrick = (trickString) => {
-        console.log('NEW TRICK IN PLAY CONTAINER')
+    newTrickArray = (trickString) => {
+        // console.log('NEW TRICK IN PLAY CONTAINER')
         let trStrArr = trickString.split('%')
         for (let el of trStrArr) {
             if (el === '') {
@@ -79,10 +83,7 @@ class PlayContainer extends Component {
                 }
             }
         }
-
     }
-
-
 
     getDummyHand = () => {
         fetch(`${API_ROOT}/hand/${this.props.deal.id}/${this.props.dummy}`)
@@ -90,10 +91,10 @@ class PlayContainer extends Component {
             .then( hand => this.setState({dummyHand: hand}))
     }
 
-    dummyOrientation = () => {
+    dummyDirection = () => {
         // console.log("DUMMY FUNCTION", this.props.deal.dummy, this.props.myPosition)
         if (this.props.deal.dummy === this.props.myPosition) {
-            return (<div> This round, I am the dummy. </div>)
+            return ('This round, I am the dummy.')
         } else {
             let seats = ['north', 'east', 'south', 'west']
             while (this.props.myPosition !== seats[0]) {
@@ -101,13 +102,10 @@ class PlayContainer extends Component {
                 seats.unshift(x)
             }
             let ind = seats.indexOf(this.props.deal.dummy)
-            let zed = ['left', 'center', 'right'][ind - 1]
-            return `${zed}Dummy`
+            let dummyOrientation = ['left', 'center', 'right'][ind - 1]
+            this.props.dispatch({type: 'SET_DUMMY_ORIENTATION', payload: dummyOrientation})
+            return `${dummyOrientation}Dummy`
         }
-    }
-
-    localHandlePlay = (e, card, ) => {
-
     }
 
     renderDummyHand = (ori) => {
@@ -139,7 +137,7 @@ class PlayContainer extends Component {
 
 
     render() {
-        let ori = this.dummyOrientation()
+        let ori = this.dummyDirection()
 
         return(
             <div id='playOfTheHand'>
@@ -163,13 +161,10 @@ class PlayContainer extends Component {
                                         return <Table.Cell key={index}> </Table.Cell>
                                     }})
                                 }
-
                             </Table.Row>
                         </Table.Body>
-
                     </Table >
                 </div>
-
             </div>
         )
     }
@@ -181,7 +176,8 @@ const mapStateToProps = (state) => {
     return {
         currentGame: state.currentGame,
         myPosition: state.myPosition,
-        currentContract: state.currentContract
+        currentContract: state.currentContract,
+        dummyOrientation: state.dummyOrientation
     }
 }
 

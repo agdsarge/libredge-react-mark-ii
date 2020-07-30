@@ -8,15 +8,14 @@ const initialState = {
         trumpSuit: '' // 'S', 'NT'
     },
     myPosition: null,
-    currentDealScore: 0.00
+    currentDealScore: 0.00,
+    dummyOrientation: null
 }
 
 const reducer = (state=initialState, action) => {
     switch (action.type) {
         case 'SET_USER':
             return {...state, currentUser: action.payload}
-        // case 'SET_ROUTE':
-        //     return {...state, currentRoute: action.payload}
         case 'SET_CONTRACT':
             return {...state, currentContract: {contract: action.payload, trumpSuit: action.payload.match(/\D+/g)[0]}}
         case 'SET_GAME':
@@ -28,6 +27,8 @@ const reducer = (state=initialState, action) => {
         case 'INCREMENT_Score':
             let newScore = state.currentDealScore + action.payload
             return {...state, currentDealScore: newScore}
+        case 'SET_DUMMY_ORIENTATION':
+            return {...state, dummyOrientation: action.payload}
         default:
             return state
     }
